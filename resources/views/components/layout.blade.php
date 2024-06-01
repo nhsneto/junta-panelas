@@ -14,8 +14,8 @@
             <nav class="flex justify-between items-center py-10 font-semibold">
                 <a href="{{ url('/') }}" class="font-['Style_Script'] text-5xl">Junta-Panelas</a>
                 <div class="space-x-6">
-                    <a href="{{ url('/') }}" class="hover:text-[#d3756b] hover:underline decoration-2 underline-offset-2">Entrar</a>
-                    <a href="{{ url('/') }}" class="hover:text-[#d3756b] hover:underline decoration-2 underline-offset-2">Cadastrar</a>
+                    <x-nav-link href="{{ url('/entrar') }}">Entrar</x-nav-link>
+                    <x-nav-link href="{{ url('/cadastro') }}">Cadastrar</x-nav-link>
                 </div>
             </nav>
 
