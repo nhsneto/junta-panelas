@@ -19,7 +19,7 @@
                 </div>
             </nav>
 
-            <main class="grow content-center">{{ $slot }}</main>
+            <main class="grow flex justify-center">{{ $slot }}</main>
 
             <footer class="py-10 text-sm text-center">
                 <p>&copy; nhsneto</p>

@@ -1,5 +1,5 @@
 <x-layout>
-    <section class="flex justify-between items-center gap-x-10">
+    <section class="w-full flex justify-between items-center">
         <div class="max-w-md">
             <h1 class="text-5xl font-bold leading-tight">Planeje agora seu Junta-Panelas!</h1>
             <p class="mt-4 text-xl leading-snug">Quando será o junta-panelas? O que o pessoal vai levar?</p>
