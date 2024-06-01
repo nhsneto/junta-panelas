@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/cadastro', [RegisteredUserController::class, 'create'])
+Route::get('cadastro', [RegisteredUserController::class, 'create'])
     ->name('cadastro');
 
-Route::post('/cadastro', [RegisteredUserController::class, 'store']);
+Route::post('cadastro', [RegisteredUserController::class, 'store']);
