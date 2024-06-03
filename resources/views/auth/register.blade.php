@@ -4,7 +4,7 @@
 
         <form method="POST" action="/cadastro" class="w-full flex flex-col gap-y-6">
             @csrf
-            <x-input-field label="Nome" name="test"/>
+            <x-input-field label="Nome" name="nome"/>
             <x-input-field label="Email" type="email" name="email"/>
             <x-input-field label="Senha" type="password" name="senha"/>
             <x-input-field label="Confirmar Senha" type="password" name="senha_confirmation"/>
