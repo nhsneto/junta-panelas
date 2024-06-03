@@ -11,6 +11,6 @@
             <button type="submit" class="bg-[#f0997d] text-xl text-black/50 font-bold text-center py-2.5 rounded-xl drop-shadow-md hover:brightness-110 active:brightness-100">Cadastrar</button>
         </form>
 
-        <x-nav-link class="text-sm">Já tem cadastro?</x-nav-link>
+        <x-primary-link class="text-sm">Já tem cadastro?</x-primary-link>
     </section>
 </x-layout>
