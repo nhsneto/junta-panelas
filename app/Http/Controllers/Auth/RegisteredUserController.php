@@ -31,6 +31,6 @@ class RegisteredUserController extends Controller
             'senha' => Hash::make($request->senha),
         ]);
 
-        return redirect('painel');
+        return redirect()->route('painel');
     }
 }

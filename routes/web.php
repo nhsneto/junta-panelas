@@ -11,3 +11,6 @@ Route::get('cadastro', [RegisteredUserController::class, 'create'])
     ->name('cadastro');
 
 Route::post('cadastro', [RegisteredUserController::class, 'store']);
+
+Route::get('painel', function () {})
+    ->name('painel');
