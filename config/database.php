@@ -118,6 +118,15 @@ return [
             ],
         ],
 
+        'mongodb_test' => [
+            'driver' => 'mongodb',
+            'dsn' => 'mongodb://127.0.0.1:27017',
+            'database' => 'junta-panelas-test',
+            'options' => [
+                'appName' => 'Junta-Panelas-Test'
+            ],
+        ],
+
     ],
 
     /*
