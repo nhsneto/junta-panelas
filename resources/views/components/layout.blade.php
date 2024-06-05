@@ -19,9 +19,9 @@
                 </div>
             </nav>
 
-            <main class="grow flex justify-center">{{ $slot }}</main>
+            <main class="mt-auto flex justify-center">{{ $slot }}</main>
 
-            <footer class="py-10 text-sm text-center">
+            <footer class="mt-auto py-10 text-sm text-center">
                 <p>&copy; nhsneto</p>
             </footer>
         </div>
