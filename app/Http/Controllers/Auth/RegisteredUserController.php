@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
@@ -26,8 +27,8 @@ class RegisteredUserController extends Controller
         ]);
 
         User::create([
-            'nome' => ucwords(strtolower($request->nome)),
-            'email' => strtolower($request->email),
+            'nome' => Str::title($request->nome),
+            'email' => Str::lower($request->email),
             'senha' => Hash::make($request->senha),
         ]);
 
