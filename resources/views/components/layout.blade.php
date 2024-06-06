@@ -14,7 +14,7 @@
             <nav class="flex justify-between items-center py-10 font-semibold">
                 <a href="{{ url('/') }}" class="font-['Style_Script'] text-5xl">Junta-Panelas</a>
                 <div class="space-x-6">
-                    <x-primary-link>Entrar</x-primary-link>
+                    <x-primary-link href="{{ route('entrar') }}">Entrar</x-primary-link>
                     <x-primary-link href="{{ route('cadastro') }}">Cadastro</x-primary-link>
                 </div>
             </nav>

@@ -11,6 +11,6 @@
             <x-primary-button>Cadastrar</x-primary-button>
         </form>
 
-        <x-primary-link class="text-sm">Já tem cadastro?</x-primary-link>
+        <x-primary-link href="{{ route('entrar') }}" class="text-sm">Já tem cadastro?</x-primary-link>
     </section>
 </x-layout>
