@@ -4,10 +4,10 @@
 
         <form method="POST" action="/cadastro" class="w-full flex flex-col gap-y-6">
             @csrf
-            <x-form-field label="Nome" name="nome" :value="old('nome')" required/>
+            <x-form-field label="Nome" name="name" :value="old('name')" required/>
             <x-form-field label="Email" type="email" name="email" :value="old('email')" required/>
-            <x-form-field label="Senha" type="password" name="senha" required/>
-            <x-form-field label="Confirmar Senha" type="password" name="senha_confirmation" required/>
+            <x-form-field label="Senha" type="password" name="password" required/>
+            <x-form-field label="Confirmar Senha" type="password" name="password_confirmation" required/>
             <x-primary-button>Cadastrar</x-primary-button>
         </form>
 

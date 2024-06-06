@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Hash;
 
 test('should register user', function () {
     $data = [
-        'nome' => 'Test User',
+        'name' => 'Test User',
         'email' => 'test@example.com',
-        'senha' => 'password',
-        'senha_confirmation' => 'password',
+        'password' => 'password',
+        'password_confirmation' => 'password',
     ];
 
     $this->post('/cadastro', $data);
@@ -16,60 +16,60 @@ test('should register user', function () {
     $createdUser = User::where('email', 'test@example.com')->first();
 
     expect($createdUser->id)->toBeTruthy()
-        ->and($createdUser->nome)->toBe('Test User')
+        ->and($createdUser->name)->toBe('Test User')
         ->and($createdUser->email)->toBe('test@example.com')
-        ->and(Hash::check('password', $createdUser->senha))->toBeTrue();
+        ->and(Hash::check('password', $createdUser->password))->toBeTrue();
 });
 
 // NAME TESTS
 
 test('should fail when trying to register user without name', function () {
     $data = [
-        'nome' => null,
+        'name' => null,
         'email' => 'test@example.com',
-        'senha' => 'password',
-        'senha_confirmation' => 'password',
+        'password' => 'password',
+        'password_confirmation' => 'password',
     ];
 
     $response = $this->post('/cadastro', $data);
 
-    $response->assertInvalid('nome');
+    $response->assertInvalid('name');
 });
 
 test('should fail when trying to register user whose name is less than 2 characters', function () {
     $data = [
-        'nome' => 'T',
+        'name' => 'T',
         'email' => 'test@example.com',
-        'senha' => 'password',
-        'senha_confirmation' => 'password',
+        'password' => 'password',
+        'password_confirmation' => 'password',
     ];
 
     $response = $this->post('/cadastro', $data);
 
-    $response->assertInvalid('nome');
+    $response->assertInvalid('name');
 });
 
 test('should fail when trying to register user whose name is only numeric', function () {
     $data = [
-        'nome' => '12345',
+        'name' => '12345',
         'email' => 'test@example.com',
-        'senha' => 'password',
-        'senha_confirmation' => 'password',
+        'password' => 'password',
+        'password_confirmation' => 'password',
     ];
 
     $response = $this->post('/cadastro', $data);
 
-    $response->assertInvalid('nome');
+    $response->assertInvalid('name');
 });
 
 // EMAIL TESTS
 
 test('should fail when trying to register user without email', function () {
     $data = [
-        'nome' => 'Test User',
+        'name' => 'Test User',
         'email' => null,
-        'senha' => 'password',
-        'senha_confirmation' => 'password',
+        'password' => 'password',
+        'password_confirmation' => 'password',
     ];
 
     $response = $this->post('/cadastro', $data);
@@ -79,10 +79,10 @@ test('should fail when trying to register user without email', function () {
 
 test('should fail when trying to register user using an invalid email format', function () {
     $data = [
-        'nome' => 'Test User',
+        'name' => 'Test User',
         'email' => 'test',
-        'senha' => 'password',
-        'senha_confirmation' => 'password',
+        'password' => 'password',
+        'password_confirmation' => 'password',
     ];
 
     $response = $this->post('/cadastro', $data);
@@ -92,17 +92,17 @@ test('should fail when trying to register user using an invalid email format', f
 
 test('should fail when trying to register user with a duplicate email', function () {
     User::create([
-        'nome' => 'Test User',
+        'name' => 'Test User',
         'email' => 'test@example.com',
-        'senha' => 'password',
-        'senha_confirmation' => 'password',
+        'password' => 'password',
+        'password_confirmation' => 'password',
     ]);
 
     $data = [
-        'nome' => 'Another Test User',
+        'name' => 'Another Test User',
         'email' => 'test@example.com', // This email already exists in the database
-        'senha' => 'password',
-        'senha_confirmation' => 'password',
+        'password' => 'password',
+        'password_confirmation' => 'password',
     ];
 
     $response = $this->post('/cadastro', $data);
@@ -114,52 +114,52 @@ test('should fail when trying to register user with a duplicate email', function
 
 test('should fail when trying to register user without password', function () {
     $data = [
-        'nome' => 'Test User',
+        'name' => 'Test User',
         'email' => 'test@example.com',
-        'senha' => null,
-        'senha_confirmation' => 'password',
+        'password' => null,
+        'password_confirmation' => 'password',
     ];
 
     $response = $this->post('/cadastro', $data);
 
-    $response->assertInvalid('senha');
+    $response->assertInvalid('password');
 });
 
 test('should fail when trying to register user without password confirmation', function () {
     $data = [
-        'nome' => 'Test User',
+        'name' => 'Test User',
         'email' => 'test@example.com',
-        'senha' => 'password',
-        'senha_confirmation' => null,
+        'password' => 'password',
+        'password_confirmation' => null,
     ];
 
     $response = $this->post('/cadastro', $data);
 
-    $response->assertInvalid('senha');
+    $response->assertInvalid('password');
 });
 
 test('should fail when trying to register user with a different password confirmation', function () {
     $data = [
-        'nome' => 'Test User',
+        'name' => 'Test User',
         'email' => 'test@example.com',
-        'senha' => 'password',
-        'senha_confirmation' => 'diffpassword',
+        'password' => 'password',
+        'password_confirmation' => 'diffpassword',
     ];
 
     $response = $this->post('/cadastro', $data);
 
-    $response->assertInvalid('senha');
+    $response->assertInvalid('password');
 });
 
 test('should fail when trying to register user whose password is less than 6 characters', function () {
     $data = [
-        'nome' => 'Test User',
+        'name' => 'Test User',
         'email' => 'test@example.com',
-        'senha' => 'a#123',
-        'senha_confirmation' => 'a#123',
+        'password' => 'a#123',
+        'password_confirmation' => 'a#123',
     ];
 
     $response = $this->post('/cadastro', $data);
 
-    $response->assertInvalid('senha');
+    $response->assertInvalid('password');
 });

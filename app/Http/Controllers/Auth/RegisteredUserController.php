@@ -21,15 +21,15 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'nome' => ['required', 'string', 'min:2', 'not_regex:/^[0-9]+$/'],
+            'name' => ['required', 'string', 'min:2', 'not_regex:/^[0-9]+$/'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'senha' => ['required', 'confirmed', Password::min(6)],
+            'password' => ['required', 'confirmed', Password::min(6)],
         ]);
 
         User::create([
-            'nome' => Str::title($request->nome),
+            'name' => Str::title($request->name),
             'email' => Str::lower($request->email),
-            'senha' => Hash::make($request->senha),
+            'password' => Hash::make($request->password),
         ]);
 
         return redirect()->route('painel');
