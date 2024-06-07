@@ -7,15 +7,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('cadastro', [RegisteredUserController::class, 'create'])
-    ->name('cadastro');
+Route::middleware('guest')->group(function () {
+    Route::get('cadastro', [RegisteredUserController::class, 'create'])
+        ->name('cadastro');
 
-Route::post('cadastro', [RegisteredUserController::class, 'store']);
+    Route::post('cadastro', [RegisteredUserController::class, 'store']);
 
-Route::get('entrar', [SessionController::class, 'create'])
-    ->name('entrar');
+    Route::get('entrar', [SessionController::class, 'create'])
+        ->name('entrar');
 
-Route::post('entrar', [SessionController::class, 'store']);
+    Route::post('entrar', [SessionController::class, 'store']);
+});
 
 Route::get('painel', function () {})
     ->name('painel');

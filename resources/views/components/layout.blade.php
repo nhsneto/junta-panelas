@@ -14,12 +14,19 @@
             <nav class="flex justify-between items-center py-10 font-semibold">
                 <a href="{{ url('/') }}" class="font-['Style_Script'] text-5xl">Junta-Panelas</a>
                 <div class="space-x-6">
-                    <x-primary-link href="{{ route('entrar') }}">Entrar</x-primary-link>
-                    <x-primary-link href="{{ route('cadastro') }}">Cadastro</x-primary-link>
+                    @guest
+                        <x-primary-link href="{{ route('entrar') }}">Entrar</x-primary-link>
+                        <x-primary-link href="{{ route('cadastro') }}">Cadastro</x-primary-link>
+                    @endguest
+
+                    @auth
+                        <x-primary-link href="{{ route('painel') }}">Meus Junta-Panelas</x-primary-link>
+                        <x-primary-link>{{ Auth::user()->name }}</x-primary-link>
+                    @endauth
                 </div>
             </nav>
 
-            <main class="mt-auto flex justify-center">{{ $slot }}</main>
+            <main class="@guest mt-auto @endguest flex justify-center">{{ $slot }}</main>
 
             <footer class="mt-auto py-10 text-sm text-center">
                 <p>&copy; nhsneto</p>
