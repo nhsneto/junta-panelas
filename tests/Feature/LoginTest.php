@@ -93,3 +93,24 @@ test('should fail when trying to log into the system with wrong password', funct
     // When login credential error occurs (email or password), the 'email' field is the chosen to get the error message
     $response->assertInvalid('email');
 });
+
+test('should fail when trying to log into the system using wrong credentials after 5 attempts', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $numberOfAttempts = 6;
+    for ($i = 0; $i < $numberOfAttempts; $i++) {
+        $response = $this->post(route('entrar'), [
+            'email' => 'foo@bar.com',
+            'password' => 'foo1234',
+        ]);
+    }
+
+    // When the login rate limit exceeds, the 'email' field is the chosen to get the error message
+    $response->assertInvalid([
+        'email' => 'Limite de tentativas excedido. Tente novamente em 5 minutos.'
+    ]);
+});
