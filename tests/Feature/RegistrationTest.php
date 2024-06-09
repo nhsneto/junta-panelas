@@ -11,7 +11,7 @@ test('should register user', function () {
         'password_confirmation' => 'password',
     ];
 
-    $this->post(route('register'), $data);
+    $response = $this->post(route('register'), $data);
 
     $createdUser = User::where('email', 'test@example.com')->first();
 
@@ -19,6 +19,8 @@ test('should register user', function () {
         ->and($createdUser->name)->toBe('Test User')
         ->and($createdUser->email)->toBe('test@example.com')
         ->and(Hash::check('password', $createdUser->password))->toBeTrue();
+
+    $response->assertRedirectToRoute('dashboard');
 });
 
 // NAME TESTS
