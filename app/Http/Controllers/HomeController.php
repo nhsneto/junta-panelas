@@ -14,6 +14,6 @@ class HomeController extends Controller
             return view('index');
         }
 
-        return redirect()->route('painel');
+        return redirect()->route('dashboard');
     }
 }

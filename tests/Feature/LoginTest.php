@@ -10,12 +10,12 @@ test('should log the user in the system', function () {
         'password' => Hash::make('password'),
     ]);
 
-    $response = $this->post(route('entrar'), [
+    $response = $this->post(route('login'), [
         'email' => 'test@example.com',
         'password' => 'password',
     ]);
 
-    $response->assertRedirectToRoute('painel');
+    $response->assertRedirectToRoute('dashboard');
 });
 
 test('should fail when trying to log into the system without email', function () {
@@ -25,7 +25,7 @@ test('should fail when trying to log into the system without email', function ()
         'password' => Hash::make('password'),
     ]);
 
-    $response = $this->post(route('entrar'), [
+    $response = $this->post(route('login'), [
         'email' => null,
         'password' => 'password',
     ]);
@@ -40,7 +40,7 @@ test('should fail when trying to log into the system using an invalid email form
         'password' => Hash::make('password'),
     ]);
 
-    $response = $this->post(route('entrar'), [
+    $response = $this->post(route('login'), [
         'email' => 'test@',
         'password' => 'password',
     ]);
@@ -55,7 +55,7 @@ test('should fail when trying to log into the system without password', function
         'password' => Hash::make('password'),
     ]);
 
-    $response = $this->post(route('entrar'), [
+    $response = $this->post(route('login'), [
         'email' => 'test@example.com',
         'password' => null,
     ]);
@@ -70,7 +70,7 @@ test('should fail when trying to log into the system with nonexistent email in t
         'password' => Hash::make('password'),
     ]);
 
-    $response = $this->post(route('entrar'), [
+    $response = $this->post(route('login'), [
         'email' => 'foo@bar.com',
         'password' => 'password',
     ]);
@@ -85,7 +85,7 @@ test('should fail when trying to log into the system with wrong password', funct
         'password' => Hash::make('password'),
     ]);
 
-    $response = $this->post(route('entrar'), [
+    $response = $this->post(route('login'), [
         'email' => 'test@example.com',
         'password' => 'foo1234',
     ]);
@@ -103,7 +103,7 @@ test('should fail when trying to log into the system using wrong credentials aft
 
     $numberOfAttempts = 6;
     for ($i = 0; $i < $numberOfAttempts; $i++) {
-        $response = $this->post(route('entrar'), [
+        $response = $this->post(route('login'), [
             'email' => 'foo@bar.com',
             'password' => 'foo1234',
         ]);

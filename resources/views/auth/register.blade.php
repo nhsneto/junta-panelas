@@ -2,7 +2,7 @@
     <section class="max-w-lg flex flex-col basis-full items-center gap-y-8 px-12 py-10 bg-[#fbfbfb] rounded-xl shadow-md">
         <h1 class="text-3xl font-semibold">Cadastro</h1>
 
-        <form method="POST" action="{{ route('cadastro') }}" class="w-full flex flex-col gap-y-6">
+        <form method="POST" action="{{ route('register') }}" class="w-full flex flex-col gap-y-6">
             @csrf
             <x-form-field label="Nome" name="name" :value="old('name')" required/>
             <x-form-field label="Email" type="email" name="email" :value="old('email')" required/>
@@ -11,6 +11,6 @@
             <x-primary-button>Cadastrar</x-primary-button>
         </form>
 
-        <x-primary-link href="{{ route('entrar') }}" class="text-sm">Já tem cadastro?</x-primary-link>
+        <x-primary-link href="{{ route('login') }}" class="text-sm">Já tem cadastro?</x-primary-link>
     </section>
 </x-layout>

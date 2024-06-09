@@ -15,12 +15,12 @@
                 <a href="{{ url('/') }}" class="font-['Style_Script'] text-5xl">Junta-Panelas</a>
                 <div class="space-x-6">
                     @guest
-                        <x-primary-link href="{{ route('entrar') }}">Entrar</x-primary-link>
-                        <x-primary-link href="{{ route('cadastro') }}">Cadastro</x-primary-link>
+                        <x-primary-link href="{{ route('login') }}">Entrar</x-primary-link>
+                        <x-primary-link href="{{ route('register') }}">Cadastro</x-primary-link>
                     @endguest
 
                     @auth
-                        <x-primary-link href="{{ route('painel') }}">Meus Junta-Panelas</x-primary-link>
+                        <x-primary-link href="{{ route('dashboard') }}">Meus Junta-Panelas</x-primary-link>
                         <x-primary-link>{{ Auth::user()->name }}</x-primary-link>
                     @endauth
                 </div>

@@ -9,18 +9,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 
 Route::middleware('guest')->group(function () {
-    Route::get('cadastro', [RegisteredUserController::class, 'create'])
-        ->name('cadastro');
+    Route::get('register', [RegisteredUserController::class, 'create'])
+        ->name('register');
 
-    Route::post('cadastro', [RegisteredUserController::class, 'store']);
+    Route::post('register', [RegisteredUserController::class, 'store']);
 
-    Route::get('entrar', [SessionController::class, 'create'])
-        ->name('entrar');
+    Route::get('login', [SessionController::class, 'create'])
+        ->name('login');
 
-    Route::post('entrar', [SessionController::class, 'store']);
+    Route::post('login', [SessionController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('painel', [JuntaPanelasController::class, 'index'])
-        ->name('painel');
+    Route::get('dashboard', [JuntaPanelasController::class, 'index'])
+        ->name('dashboard');
 });

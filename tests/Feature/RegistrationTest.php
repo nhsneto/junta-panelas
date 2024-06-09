@@ -11,7 +11,7 @@ test('should register user', function () {
         'password_confirmation' => 'password',
     ];
 
-    $this->post('/cadastro', $data);
+    $this->post(route('register'), $data);
 
     $createdUser = User::where('email', 'test@example.com')->first();
 
@@ -31,7 +31,7 @@ test('should fail when trying to register user without name', function () {
         'password_confirmation' => 'password',
     ];
 
-    $response = $this->post('/cadastro', $data);
+    $response = $this->post(route('register'), $data);
 
     $response->assertInvalid('name');
 });
@@ -44,7 +44,7 @@ test('should fail when trying to register user whose name is less than 2 charact
         'password_confirmation' => 'password',
     ];
 
-    $response = $this->post('/cadastro', $data);
+    $response = $this->post(route('register'), $data);
 
     $response->assertInvalid('name');
 });
@@ -57,7 +57,7 @@ test('should fail when trying to register user whose name is only numeric', func
         'password_confirmation' => 'password',
     ];
 
-    $response = $this->post('/cadastro', $data);
+    $response = $this->post(route('register'), $data);
 
     $response->assertInvalid('name');
 });
@@ -72,7 +72,7 @@ test('should fail when trying to register user without email', function () {
         'password_confirmation' => 'password',
     ];
 
-    $response = $this->post('/cadastro', $data);
+    $response = $this->post(route('register'), $data);
 
     $response->assertInvalid('email');
 });
@@ -85,7 +85,7 @@ test('should fail when trying to register user using an invalid email format', f
         'password_confirmation' => 'password',
     ];
 
-    $response = $this->post('/cadastro', $data);
+    $response = $this->post(route('register'), $data);
 
     $response->assertInvalid('email');
 });
@@ -105,7 +105,7 @@ test('should fail when trying to register user with a duplicate email', function
         'password_confirmation' => 'password',
     ];
 
-    $response = $this->post('/cadastro', $data);
+    $response = $this->post(route('register'), $data);
 
     $response->assertInvalid('email');
 });
@@ -120,7 +120,7 @@ test('should fail when trying to register user without password', function () {
         'password_confirmation' => 'password',
     ];
 
-    $response = $this->post('/cadastro', $data);
+    $response = $this->post(route('register'), $data);
 
     $response->assertInvalid('password');
 });
@@ -133,7 +133,7 @@ test('should fail when trying to register user without password confirmation', f
         'password_confirmation' => null,
     ];
 
-    $response = $this->post('/cadastro', $data);
+    $response = $this->post(route('register'), $data);
 
     $response->assertInvalid('password');
 });
@@ -146,7 +146,7 @@ test('should fail when trying to register user with a different password confirm
         'password_confirmation' => 'diffpassword',
     ];
 
-    $response = $this->post('/cadastro', $data);
+    $response = $this->post(route('register'), $data);
 
     $response->assertInvalid('password');
 });
@@ -159,7 +159,7 @@ test('should fail when trying to register user whose password is less than 6 cha
         'password_confirmation' => 'a#123',
     ];
 
-    $response = $this->post('/cadastro', $data);
+    $response = $this->post(route('register'), $data);
 
     $response->assertInvalid('password');
 });
