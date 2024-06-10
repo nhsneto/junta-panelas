@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="h-full bg-[#fff5ea]">
+<html lang="{{ strtolower(str_replace('_', '-', app()->getLocale())) }}" class="h-full bg-[#fff5ea]">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,16 +15,16 @@
                 <a href="{{ url('/') }}" class="font-['Style_Script'] text-5xl">Junta-Panelas</a>
                 <div class="space-x-6">
                     @guest
-                        <x-primary-link href="{{ route('login') }}">Entrar</x-primary-link>
-                        <x-primary-link href="{{ route('register') }}">Cadastro</x-primary-link>
+                        <x-primary-link href="{{ route('login') }}">{{ __('Log In') }}</x-primary-link>
+                        <x-primary-link href="{{ route('register') }}">{{ __('Register') }}</x-primary-link>
                     @endguest
 
                     @auth
-                        <x-primary-link href="{{ route('dashboard') }}">Meus Junta-Panelas</x-primary-link>
+                        <x-primary-link href="{{ route('dashboard') }}">{{ __('My Junta-Panelas') }}</x-primary-link>
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @method('DELETE')
                             @csrf
-                            <button>Log Out</button>
+                            <button>{{ __('Log Out') }}</button>
                         </form>
                     @endauth
                 </div>
