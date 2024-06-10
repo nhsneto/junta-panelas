@@ -114,3 +114,20 @@ test('should fail when trying to log into the system using wrong credentials aft
         'email' => 'Limite de tentativas excedido. Tente novamente em 5 minutos.'
     ]);
 });
+
+test('should log the user out of the system', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $response = $this->delete(route('logout'));
+
+    $response->assertRedirect('/');
+});

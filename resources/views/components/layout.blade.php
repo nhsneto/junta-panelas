@@ -21,7 +21,11 @@
 
                     @auth
                         <x-primary-link href="{{ route('dashboard') }}">Meus Junta-Panelas</x-primary-link>
-                        <x-primary-link>{{ Auth::user()->name }}</x-primary-link>
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @method('DELETE')
+                            @csrf
+                            <button>Log Out</button>
+                        </form>
                     @endauth
                 </div>
             </nav>
