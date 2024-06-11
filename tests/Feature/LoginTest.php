@@ -15,7 +15,7 @@ test('should log the user in the system', function () {
         'password' => 'password',
     ]);
 
-    $response->assertRedirectToRoute('dashboard');
+    $response->assertRedirectToRoute('junta-panelas.index');
 });
 
 test('should fail when trying to log into the system without email', function () {

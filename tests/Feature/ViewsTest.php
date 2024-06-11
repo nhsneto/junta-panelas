@@ -21,7 +21,7 @@ test('login page can be rendered', function () {
     $response->assertStatus(200);
 });
 
-test('dashboard page can be rendered', function () {
+test('junta-panelas index page can be rendered', function () {
     User::create([
         'name' => 'Test User',
         'email' => 'test@example.com',
@@ -33,7 +33,7 @@ test('dashboard page can be rendered', function () {
         'password' => 'password',
     ]);
 
-    $response = $this->get(route('dashboard'));
+    $response = $this->get(route('junta-panelas.index'));
 
     $response->assertStatus(200);
 });

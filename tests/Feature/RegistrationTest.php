@@ -20,7 +20,7 @@ test('should register user', function () {
         ->and($createdUser->email)->toBe('test@example.com')
         ->and(Hash::check('password', $createdUser->password))->toBeTrue();
 
-    $response->assertRedirectToRoute('dashboard');
+    $response->assertRedirectToRoute('junta-panelas.index');
 });
 
 // NAME TESTS
