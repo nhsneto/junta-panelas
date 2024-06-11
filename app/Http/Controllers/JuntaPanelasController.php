@@ -9,7 +9,7 @@ class JuntaPanelasController extends Controller
 {
     public function index(Request $request): View
     {
-        return view('junta-panelas/dashboard', [
+        return view('junta-panelas.index', [
             'user' => $request->user(),
         ]);
     }
