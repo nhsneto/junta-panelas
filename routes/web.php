@@ -22,7 +22,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', [JuntaPanelasController::class, 'index'])
-        ->name('dashboard');
+        ->name('junta-panelas.index');
 
     Route::delete('logout', [SessionController::class, 'destroy'])
         ->name('logout');

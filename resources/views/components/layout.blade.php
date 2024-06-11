@@ -20,7 +20,7 @@
                     @endguest
 
                     @auth
-                        <x-primary-link href="{{ route('dashboard') }}">{{ __('My Junta-Panelas') }}</x-primary-link>
+                        <x-primary-link href="{{ route('junta-panelas.index') }}">{{ __('My Junta-Panelas') }}</x-primary-link>
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @method('DELETE')
                             @csrf
