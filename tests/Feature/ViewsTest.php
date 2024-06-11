@@ -37,3 +37,20 @@ test('junta-panelas index page can be rendered', function () {
 
     $response->assertStatus(200);
 });
+
+test('junta-panelas create page can be rendered', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $response = $this->get(route('junta-panelas.create'));
+
+    $response->assertStatus(200);
+});

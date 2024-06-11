@@ -13,4 +13,9 @@ class JuntaPanelasController extends Controller
             'user' => $request->user(),
         ]);
     }
+
+    public function create(Request $request): View
+    {
+        return view('junta-panelas.create');
+    }
 }
