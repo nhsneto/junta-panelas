@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::get('junta-panelas/create', [JuntaPanelasController::class, 'create'])
         ->name('junta-panelas.create');
 
+    Route::get('junta-panelas/edit', [JuntaPanelasController::class, 'edit'])
+        ->name('junta-panelas.edit');
+
     Route::delete('logout', [SessionController::class, 'destroy'])
         ->name('logout');
 });
