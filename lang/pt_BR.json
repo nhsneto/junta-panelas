@@ -23,5 +23,14 @@
     "Cancel": "Cancelar",
     "Christmas Party": "Confraternização de Natal",
     "Update Planning": "Atualizar Planejamento",
-    "Delete": "Deletar"
+    "Delete": "Deletar",
+    "Change Email": "Mudar Email",
+    "Current Email": "Email Atual",
+    "New Email": "Novo Email",
+    "Confirm New Email": "Confirmar Novo Email",
+    "Change Password": "Mudar Senha",
+    "Current Password": "Senha Atual",
+    "New Password": "Nova Senha",
+    "Confirm New Password": "Confirmar Nova Senha",
+    "Delete Account": "Deletar Conta"
 }

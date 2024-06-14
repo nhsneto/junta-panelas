@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JuntaPanelasController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
@@ -29,6 +30,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('junta-panelas/edit', [JuntaPanelasController::class, 'edit'])
         ->name('junta-panelas.edit');
+
+    Route::get('profile', [ProfileController::class, 'index'])
+        ->name('profile');
 
     Route::delete('logout', [SessionController::class, 'destroy'])
         ->name('logout');
