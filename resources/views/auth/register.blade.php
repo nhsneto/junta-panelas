@@ -8,7 +8,7 @@
             <x-form-field label="Email" type="email" name="email" :value="old('email')" required/>
             <x-form-field label="{{ __('Password') }}" type="password" name="password" required/>
             <x-form-field label="{{ __('Confirm Password') }}" type="password" name="password_confirmation" required/>
-            <x-primary-button>{{ __('Register Now') }}</x-primary-button>
+            <x-primary-button class="py-3">{{ __('Register Now') }}</x-primary-button>
         </form>
 
         <x-primary-link href="{{ route('login') }}" class="text-sm">{{ __('Already registered?') }}</x-primary-link>

@@ -9,7 +9,7 @@
             <x-form-field label="{{ __('Time') }}" type="time" name="time" :value="old('time')" required/>
             <div class="flex items-center justify-between gap-x-6">
                 <x-secondary-link href="{{ route('junta-panelas.index') }}" class="px-4 py-2">{{ __('Cancel') }}</x-secondary-link>
-                <x-primary-button class="grow text-base">{{ __('Plan') }}</x-primary-button>
+                <x-primary-button class="grow text-base py-3">{{ __('Plan') }}</x-primary-button>
             </div>
         </form>
     </section>

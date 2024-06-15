@@ -6,7 +6,7 @@
             @csrf
             <x-form-field label="Email" type="email" name="email" :value="old('email')" required/>
             <x-form-field label="{{ __('Password') }}" type="password" name="password" required/>
-            <x-primary-button>{{ __('Log In') }}</x-primary-button>
+            <x-primary-button class="py-3">{{ __('Log In') }}</x-primary-button>
         </form>
 
         <x-primary-link href="{{ route('register') }}" class="text-sm">{{ __('Not registered?') }}</x-primary-link>

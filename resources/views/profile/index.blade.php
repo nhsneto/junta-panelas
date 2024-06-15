@@ -2,25 +2,23 @@
     <div class="max-w-2xl flex flex-col basis-full items-center gap-y-20">
         <section class="w-full flex flex-col items-center gap-y-8 px-12 py-10 bg-[#fbfbfb] rounded-xl shadow-md">
             <h2 class="text-xl font-semibold self-start">{{ __('Change Email') }}</h2>
-
             <form method="POST" action="" class="w-full flex flex-col gap-y-6 text-sm">
                 @csrf
                 <x-form-field label="{{ __('Current Email') }}" type="email" name="current_email" :value="old('current_email')" required/>
                 <x-form-field label="{{ __('New Email') }}" type="email" name="new_email" required/>
                 <x-form-field label="{{ __('Confirm New Email') }}" type="email" name="new_email_confirmation" required/>
-                <x-primary-button class="max-w-40">{{ __('Change Email') }}</x-primary-button>
+                <x-primary-button class="self-start px-5 py-2.5">{{ __('Change Email') }}</x-primary-button>
             </form>
         </section>
 
         <section class="w-full flex flex-col basis-full items-center gap-y-8 px-12 py-10 bg-[#fbfbfb] rounded-xl shadow-md">
             <h2 class="text-xl font-semibold self-start">{{ __('Change Password') }}</h2>
-
             <form method="POST" action="" class="w-full flex flex-col gap-y-6 text-sm">
                 @csrf
                 <x-form-field label="{{ __('Current Password') }}" type="email" name="current_password" :value="old('current_email')" required/>
                 <x-form-field label="{{ __('New Password') }}" type="email" name="new_password" required/>
                 <x-form-field label="{{ __('Confirm New Password') }}" type="email" name="new_password_confirmation" required/>
-                <x-primary-button class="max-w-40">{{ __('Change Password') }}</x-primary-button>
+                <x-primary-button class="self-start px-5 py-2.5">{{ __('Change Password') }}</x-primary-button>
             </form>
         </section>
 

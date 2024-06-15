@@ -13,7 +13,7 @@
                     <x-trash-icon />
                     <span>{{ __('Delete') }}</span>
                 </button>
-                <x-primary-button class="grow text-base">{{ __('Plan') }}</x-primary-button>
+                <x-primary-button class="grow text-base py-3">{{ __('Plan') }}</x-primary-button>
             </div>
         </form>
     </section>
