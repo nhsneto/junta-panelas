@@ -9,7 +9,7 @@
 ])
 
 <div class="flex flex-col gap-y-2">
-    <label for="{{ $id }}" class="font-semibold">{{ $label }}</label>
+    <label for="{{ $id }}" class="self-start font-semibold">{{ $label }}</label>
     <input
         type="{{ $type }}"
         name="{{ $name }}"
