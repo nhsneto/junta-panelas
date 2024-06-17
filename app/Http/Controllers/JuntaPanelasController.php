@@ -23,4 +23,9 @@ class JuntaPanelasController extends Controller
     {
         return view('junta-panelas.edit');
     }
+
+    public function participants(Request $request): View
+    {
+        return view('junta-panelas.participants');
+    }
 }

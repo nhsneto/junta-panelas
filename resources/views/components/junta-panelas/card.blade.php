@@ -9,7 +9,7 @@
     <p class="mt-1 text-sm text-black/50 font-bold">31/05/2024 · 11:30</p>
 
     <div class="mt-4 inline-flex items-center gap-x-1.5">
-        <x-primary-link class="flex items-center gap-x-1.5 text-sm font-bold">
+        <x-primary-link href="{{ route('junta-panelas.participants') }}" class="flex items-center gap-x-1.5 text-sm font-bold">
             <x-people-icon />
             <span>{{ __('Participants') }}</span>
         </x-primary-link>
