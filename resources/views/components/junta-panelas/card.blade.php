@@ -8,8 +8,10 @@
 
     <p class="mt-1 text-sm text-black/50 font-bold">31/05/2024 · 11:30</p>
 
-    <div class="group/participants mt-4 inline-flex items-center gap-x-1.5">
-        <x-people-icon class="group-hover/participants:text-[#d3756b]"/>
-        <x-primary-link class="inline-block text-sm font-bold">{{ __('Participants') }}</x-primary-link>
+    <div class="mt-4 inline-flex items-center gap-x-1.5">
+        <x-primary-link class="flex items-center gap-x-1.5 text-sm font-bold">
+            <x-people-icon />
+            <span>{{ __('Participants') }}</span>
+        </x-primary-link>
     </div>
 </article>
