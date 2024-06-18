@@ -5,7 +5,7 @@
                 <h1 class="text-2xl font-bold">Confraternização do curso de inglês</h1>
                 <form method="GET" action="">
                     <button class="flex px-1 py-1 rounded hover:bg-black/5 hover:text-[#d3756b] active:bg-black/10">
-                        <x-download-document-icon />
+                        <x-icons.download-document />
                     </button>
                 </form>
             </div>

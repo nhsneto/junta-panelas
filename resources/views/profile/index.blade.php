@@ -26,7 +26,7 @@
             <form method="POST" action="">
                 @csrf
                 <button class="flex items-center gap-x-1.5 px-2 py-1 text-sm text-[#c82333] rounded hover:bg-black/5">
-                    <x-trash-icon />
+                    <x-icons.trash />
                     <span>{{ __('Delete Account') }}</span>
                 </button>
             </form>

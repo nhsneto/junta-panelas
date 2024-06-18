@@ -4,7 +4,7 @@
         <form method="POST" action="">
             @csrf
             <button class="hidden px-1 py-1 rounded hover:bg-black/5 active:bg-black/10 hover:text-[#c82333] group-hover:flex">
-                <x-trash-icon />
+                <x-icons.trash />
             </button>
         </form>
     </div>

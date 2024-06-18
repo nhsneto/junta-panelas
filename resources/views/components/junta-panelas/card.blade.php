@@ -4,7 +4,7 @@
             <x-primary-link href="{{ route('junta-panelas.show') }}" class="text-lg font-bold">Confraternização do Curso de Inglês</x-primary-link>
         </h1>
         <a href="{{ route('junta-panelas.edit') }}" class="hidden px-1 py-1 rounded-md group-hover:inline hover:bg-black/5 active:bg-black/10">
-            <x-pencil-icon />
+            <x-icons.pencil />
         </a>
     </div>
 
@@ -12,7 +12,7 @@
 
     <div class="mt-4 inline-flex items-center gap-x-1.5">
         <x-primary-link href="{{ route('junta-panelas.participants') }}" class="flex items-center gap-x-1.5 text-sm font-bold">
-            <x-people-icon />
+            <x-icons.people />
             <span>{{ __('Participants') }}</span>
         </x-primary-link>
     </div>

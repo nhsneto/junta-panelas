@@ -10,7 +10,7 @@
 
             <div class="flex items-center justify-between gap-x-8">
                 <button class="flex items-center gap-x-1.5 px-4 py-2 hover:text-[#c82333]">
-                    <x-trash-icon />
+                    <x-icons.trash />
                     <span>{{ __('Delete') }}</span>
                 </button>
                 <x-primary-button class="grow text-base py-3">{{ __('Plan') }}</x-primary-button>
