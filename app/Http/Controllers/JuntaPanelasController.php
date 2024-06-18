@@ -14,6 +14,11 @@ class JuntaPanelasController extends Controller
         ]);
     }
 
+    public function show(Request $request): View
+    {
+        return view('junta-panelas.show');
+    }
+
     public function create(Request $request): View
     {
         return view('junta-panelas.create');

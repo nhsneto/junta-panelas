@@ -105,3 +105,20 @@ test('junta-panelas participants page can be rendered', function () {
 
     $response->assertStatus(200);
 });
+
+test('junta-panelas show page can be rendered', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $response = $this->get(route('junta-panelas.show'));
+
+    $response->assertStatus(200);
+});
