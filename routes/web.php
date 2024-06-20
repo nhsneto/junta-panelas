@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::get('junta-panelas/create', [JuntaPanelasController::class, 'create'])
         ->name('junta-panelas.create');
 
+    Route::post('junta-panelas', [JuntaPanelasController::class, 'store'])
+        ->name('junta-panelas.store');
+
     Route::get('junta-panelas/edit', [JuntaPanelasController::class, 'edit'])
         ->name('junta-panelas.edit');
 

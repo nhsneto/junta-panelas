@@ -2,7 +2,7 @@
     <section class="max-w-lg flex flex-col basis-full items-center gap-y-8 px-12 py-10 bg-[#fbfbfb] rounded-xl shadow-md">
         <h1 class="text-3xl font-semibold">{{ __('Planning') }}</h1>
 
-        <form method="POST" action="" class="w-full flex flex-col gap-y-6">
+        <form method="POST" action="{{ route('junta-panelas.store') }}" class="w-full flex flex-col gap-y-6">
             @csrf
             <x-form-field label="{{ __('Event Title') }}" name="title" placeholder="{{ __('Christmas Party') }}" :value="old('title')" required/>
             <x-form-field label="{{ __('Date') }}" type="date" name="date" placeholder="test" :value="old('date')" required/>
