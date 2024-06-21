@@ -70,7 +70,7 @@ test('junta-panelas edit page can be rendered', function () {
 
     $this->post(route('junta-panelas.store'), [
         'title' => 'Test title',
-        'date' => now()->format('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:30',
     ]);
 

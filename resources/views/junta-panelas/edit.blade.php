@@ -12,7 +12,7 @@ $time = date('H:i', $timestamp);
             @method('PUT')
             @csrf
             <x-form-field label="{{ __('Event Title') }}" name="title" placeholder="{{ __('Christmas Party') }}" :value="$juntaPanelas->title" required/>
-            <x-form-field label="{{ __('Date') }}" type="date" name="date" :min="date('Y-m-d')" :value="$date" required/>
+            <x-form-field label="{{ __('Date') }}" type="date" name="date" :min="now()->addDay()->format('Y-m-d')" :value="$date" required/>
             <x-form-field label="{{ __('Time') }}" type="time" name="time" :value="$time" required/>
 
             <div class="flex items-center justify-between gap-x-8">

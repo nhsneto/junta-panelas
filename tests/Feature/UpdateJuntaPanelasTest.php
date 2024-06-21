@@ -18,14 +18,14 @@ test('should update a junta-panelas planning', function () {
 
     $this->post(route('junta-panelas.store'), [
         'title' => 'Test title',
-        'date' => date('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '09:45',
     ]);
 
     $juntaPanelas = JuntaPanelas::first();
     $former_updated_at = $juntaPanelas->updated_at; // Should be modified after the put request
     $newTitle = 'New test title';
-    $newDate = now()->modify('+ 1 day')->format('Y-m-d');
+    $newDate = now()->modify('+ 2 days')->format('Y-m-d');
     $newTime = '10:30';
 
     $response = $this->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
@@ -59,7 +59,7 @@ test('should do nothing when trying to update a junta-panelas planning with no n
     ]);
 
     $title = 'Test title';
-    $date = date('Y-m-d');
+    $date = now()->addDay()->format('Y-m-d');
     $time = '08:20';
 
     $this->post(route('junta-panelas.store'), [
@@ -103,7 +103,7 @@ test('should fail when trying to update a junta-panelas planning without title',
 
     $this->post(route('junta-panelas.store'), [
         'title' => 'Test title',
-        'date' => date('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
     ]);
 
@@ -132,7 +132,7 @@ test('should fail when trying to update a junta-panelas planning whose title has
 
     $this->post(route('junta-panelas.store'), [
         'title' => 'Test title',
-        'date' => date('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
     ]);
 
@@ -161,7 +161,7 @@ test('should fail when trying to update a junta-panelas planning with no date', 
 
     $this->post(route('junta-panelas.store'), [
         'title' => 'Test title',
-        'date' => date('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
     ]);
 
@@ -176,7 +176,7 @@ test('should fail when trying to update a junta-panelas planning with no date', 
     $response->assertInvalid('date');
 });
 
-test('should fail when trying to update a junta-panelas planning with a date that already passed', function () {
+test('should fail when trying to update a junta-panelas planning with a date that is not after or equal tomorrow', function () {
     User::create([
         'name' => 'Test User',
         'email' => 'test@example.com',
@@ -190,7 +190,7 @@ test('should fail when trying to update a junta-panelas planning with a date tha
 
     $this->post(route('junta-panelas.store'), [
         'title' => 'Test title',
-        'date' => date('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
     ]);
 
@@ -198,7 +198,7 @@ test('should fail when trying to update a junta-panelas planning with a date tha
 
     $response = $this->put("junta-panelas/{$id}", [
         'title' => 'Test title',
-        'date' => now()->subDay()->format('Y-m-d'),
+        'date' => now()->format('Y-m-d'),
         'time' => '16:00',
     ]);
 
@@ -219,7 +219,7 @@ test('should fail when trying to update a junta-panelas planning without time', 
 
     $this->post(route('junta-panelas.store'), [
         'title' => 'Test title',
-        'date' => date('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
     ]);
 
@@ -248,7 +248,7 @@ test('should fail when trying to update a junta-panelas planning with time in wr
 
     $this->post(route('junta-panelas.store'), [
         'title' => 'Test title',
-        'date' => date('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
     ]);
 

@@ -29,10 +29,9 @@ class JuntaPanelasController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        // TODO Time 'in the future' validation
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'date' => ['required', 'date', 'after_or_equal:' . now()->format('Y-m-d')],
+            'date' => ['required', 'date', 'after:' . now()->format('Y-m-d')],
             'time' => ['required', 'date_format:H:i'],
         ]);
 
@@ -57,10 +56,9 @@ class JuntaPanelasController extends Controller
 
     public function update(Request $request, JuntaPanelas $juntaPanelas): RedirectResponse
     {
-        // TODO Time 'in the future' validation
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'date' => ['required', 'date', 'after_or_equal:' . now()->format('Y-m-d')],
+            'date' => ['required', 'date', 'after:' . now()->format('Y-m-d')],
             'time' => ['required', 'date_format:H:i'],
         ]);
 
