@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::get('junta-panelas/edit', [JuntaPanelasController::class, 'edit'])
         ->name('junta-panelas.edit');
 
+    Route::put('junta-panelas/{juntaPanelas}', [JuntaPanelasController::class, 'update'])
+        ->name('junta-panelas.update');
+
     Route::get('junta-panelas/participants', [JuntaPanelasController::class, 'participants'])
         ->name('junta-panelas.participants');
 
