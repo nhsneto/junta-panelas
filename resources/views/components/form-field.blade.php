@@ -6,6 +6,7 @@
     'placeholder' => '',
     'value' => '',
     'required' => false,
+    'min' => '',
 ])
 
 <div class="flex flex-col gap-y-2">
@@ -16,6 +17,7 @@
         id="{{ $id }}"
         placeholder="{{ $placeholder }}"
         value="{{ $value }}"
+        {{ $min ? "min=$min" : '' }}
         {{ $required ? 'required' : '' }}
         class="px-3 py-2 border border-black/10 rounded"
     />
