@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::put('junta-panelas/{juntaPanelas}', [JuntaPanelasController::class, 'update'])
         ->name('junta-panelas.update');
 
+    Route::delete('junta-panelas/{juntaPanelas}', [JuntaPanelasController::class, 'destroy'])
+        ->name('junta-panelas.destroy');
+
     Route::get('junta-panelas/participants', [JuntaPanelasController::class, 'participants'])
         ->name('junta-panelas.participants');
 
