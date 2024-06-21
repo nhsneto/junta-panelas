@@ -17,7 +17,7 @@ test('should create a junta-panelas planning', function () {
     ]);
 
     $title = 'John doe party';
-    $date = date('Y-m-d');
+    $date = now()->addDay()->format('Y-m-d');
     $time = '14:10';
 
     $response = $this->post(route('junta-panelas.store'), [
@@ -51,7 +51,7 @@ test('should fail when trying to create a junta-panelas planning without title',
 
     $response = $this->post(route('junta-panelas.store'), [
         'title' => null,
-        'date' => now()->format('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '5:30',
     ]);
 
@@ -72,7 +72,7 @@ test('should fail when trying to create a junta-panelas planning whose title has
 
     $response = $this->post(route('junta-panelas.store'), [
         'title' => 'Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test T',
-        'date' => now()->format('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '14:10',
     ]);
 
@@ -100,7 +100,7 @@ test('should fail when trying to create a junta-panelas planning with no date', 
     $response->assertInvalid('date');
 });
 
-test('should fail when trying to create a junta-panelas planning with a date that already passed', function () {
+test('should fail when trying to create a junta-panelas planning with a date that is not after or equal tomorrow', function () {
     User::create([
         'name' => 'Test User',
         'email' => 'test@example.com',
@@ -114,7 +114,7 @@ test('should fail when trying to create a junta-panelas planning with a date tha
 
     $response = $this->post(route('junta-panelas.store'), [
         'title' => 'Christmas Party',
-        'date' => now()->subDay()->format('Y-m-d'),
+        'date' => now()->format('Y-m-d'),
         'time' => '14:10',
     ]);
 
@@ -135,7 +135,7 @@ test('should fail when trying to create a junta-panelas planning without time', 
 
     $response = $this->post(route('junta-panelas.store'), [
         'title' => 'Christmas Party',
-        'date' => now()->format('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => null,
     ]);
 
@@ -156,7 +156,7 @@ test('should fail when trying to create a junta-panelas planning with time in wr
 
     $response = $this->post(route('junta-panelas.store'), [
         'title' => 'Christmas Party',
-        'date' => now()->format('Y-m-d'),
+        'date' => now()->addDay()->format('Y-m-d'),
         'time' => '14:10:58',  // Only accepts hour:minute format
     ]);
 

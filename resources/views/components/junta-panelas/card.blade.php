@@ -10,7 +10,7 @@
         <h1>
             <x-primary-link href="{{ route('junta-panelas.show') }}" class="text-lg font-bold">{{ $juntaPanelas->title }}</x-primary-link>
         </h1>
-        <a href="{{ route('junta-panelas.edit') }}" class="hidden px-1 py-1 rounded-md group-hover:inline hover:bg-black/5 active:bg-black/10">
+        <a href="{{ route('junta-panelas.edit', ['juntaPanelas' => $juntaPanelas]) }}" class="hidden px-1 py-1 rounded-md group-hover:inline hover:bg-black/5 active:bg-black/10">
             <x-icons.pencil />
         </a>
     </div>

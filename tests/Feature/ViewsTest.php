@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\JuntaPanelas;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -67,7 +68,15 @@ test('junta-panelas edit page can be rendered', function () {
         'password' => 'password',
     ]);
 
-    $response = $this->get(route('junta-panelas.edit'));
+    $this->post(route('junta-panelas.store'), [
+        'title' => 'Test title',
+        'date' => now()->addDay()->format('Y-m-d'),
+        'time' => '08:30',
+    ]);
+
+    $response = $this->get(route('junta-panelas.edit', [
+        'juntaPanelas' => JuntaPanelas::first()
+    ]));
 
     $response->assertStatus(200);
 });

@@ -33,7 +33,7 @@ return [
         ],
 
         'date' => [
-            'after_or_equal' => 'A data não pode ser no passado. Escolha uma data a partir de hoje (' . date('d/m/Y') . ').',
+            'after' => 'Escolha uma data a partir de amanhã (' . now()->addDay()->format('d/m/Y') . ').',
         ],
 
         'time' => [

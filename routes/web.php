@@ -34,8 +34,11 @@ Route::middleware('auth')->group(function () {
     Route::post('junta-panelas', [JuntaPanelasController::class, 'store'])
         ->name('junta-panelas.store');
 
-    Route::get('junta-panelas/edit', [JuntaPanelasController::class, 'edit'])
+    Route::get('junta-panelas/{juntaPanelas}/edit', [JuntaPanelasController::class, 'edit'])
         ->name('junta-panelas.edit');
+
+    Route::put('junta-panelas/{juntaPanelas}', [JuntaPanelasController::class, 'update'])
+        ->name('junta-panelas.update');
 
     Route::get('junta-panelas/participants', [JuntaPanelasController::class, 'participants'])
         ->name('junta-panelas.participants');
