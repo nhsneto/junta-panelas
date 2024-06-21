@@ -52,6 +52,27 @@ class JuntaPanelasController extends Controller
         return view('junta-panelas.edit');
     }
 
+    public function update(Request $request, JuntaPanelas $juntaPanelas): RedirectResponse
+    {
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'date' => ['required', 'date', 'after_or_equal:' . now()->format('Y-m-d')],
+            'time' => ['required', 'date_format:H:i'],
+        ]);
+
+        $timestamp = strtotime($request->date . $request->time);
+        $date = date('c', $timestamp);
+
+        $juntaPanelas->title = $request->title;
+        $juntaPanelas->date = $date;
+
+        if ($juntaPanelas->isDirty()) {
+            $juntaPanelas->save();
+        }
+
+        return redirect()->route('junta-panelas.edit');
+    }
+
     public function participants(Request $request): View
     {
         return view('junta-panelas.participants');
