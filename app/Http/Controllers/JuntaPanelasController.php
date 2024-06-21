@@ -29,6 +29,7 @@ class JuntaPanelasController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        // TODO Time 'in the future' validation
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'date' => ['required', 'date', 'after_or_equal:' . now()->format('Y-m-d')],
@@ -47,13 +48,16 @@ class JuntaPanelasController extends Controller
         return redirect()->route('junta-panelas.index');
     }
 
-    public function edit(Request $request): View
+    public function edit(Request $request, JuntaPanelas $juntaPanelas): View
     {
-        return view('junta-panelas.edit');
+        return view('junta-panelas.edit', [
+            'juntaPanelas' => $juntaPanelas
+        ]);
     }
 
     public function update(Request $request, JuntaPanelas $juntaPanelas): RedirectResponse
     {
+        // TODO Time 'in the future' validation
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'date' => ['required', 'date', 'after_or_equal:' . now()->format('Y-m-d')],
@@ -70,7 +74,9 @@ class JuntaPanelasController extends Controller
             $juntaPanelas->save();
         }
 
-        return redirect()->route('junta-panelas.edit');
+        return redirect()->route('junta-panelas.edit', [
+            'juntaPanelas' => $juntaPanelas,
+        ]);
     }
 
     public function participants(Request $request): View

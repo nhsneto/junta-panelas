@@ -23,26 +23,27 @@ test('should update a junta-panelas planning', function () {
     ]);
 
     $juntaPanelas = JuntaPanelas::first();
-    $id = $juntaPanelas->id;
     $former_updated_at = $juntaPanelas->updated_at; // Should be modified after the put request
     $newTitle = 'New test title';
     $newDate = now()->modify('+ 1 day')->format('Y-m-d');
     $newTime = '10:30';
 
-    $response = $this->put("junta-panelas/{$id}", [
+    $response = $this->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
         'title' => $newTitle,
         'date' => $newDate,
         'time' => $newTime,
     ]);
 
-    $jp = JuntaPanelas::find($id);
+    $jp = JuntaPanelas::first();
     $iso8601Date = date('c', strtotime($newDate . $newTime));
 
     expect($jp->title)->toBe($newTitle)
         ->and($jp->date)->toBe($iso8601Date)
         ->and($jp->updated_at)->not()->toEqual($former_updated_at);
 
-    $response->assertRedirectToRoute('junta-panelas.edit');
+    $response->assertRedirectToRoute('junta-panelas.edit', [
+        'juntaPanelas' => $juntaPanelas,
+    ]);
 });
 
 test('should do nothing when trying to update a junta-panelas planning with no new data', function () {
@@ -68,23 +69,24 @@ test('should do nothing when trying to update a junta-panelas planning with no n
     ]);
 
     $juntaPanelas = JuntaPanelas::first();
-    $id = $juntaPanelas->id;
     $former_updated_at = $juntaPanelas->updated_at; // Should be the same after the put request in this case
 
-    $response = $this->put("junta-panelas/{$id}", [
+    $response = $this->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
         'title' => $title,
         'date' => $date,
         'time' => $time,
     ]);
 
-    $jp = JuntaPanelas::find($id);
+    $jp = JuntaPanelas::first();
     $iso8601Date = date('c', strtotime($date . $time));
 
     expect($jp->title)->toBe($title)
         ->and($jp->date)->toBe($iso8601Date)
         ->and($jp->updated_at)->toEqual($former_updated_at);
 
-    $response->assertRedirectToRoute('junta-panelas.edit');
+    $response->assertRedirectToRoute('junta-panelas.edit', [
+        'juntaPanelas' => $juntaPanelas,
+    ]);
 });
 
 test('should fail when trying to update a junta-panelas planning without title', function () {
