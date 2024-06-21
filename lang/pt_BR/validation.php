@@ -4,7 +4,7 @@ return [
     'required' => 'Campo obrigatório.',
 
     'custom' => [
-        'nome' => [
+        'name' => [
             'min' => [
                 'string' => 'Seu nome deve conter pelo menos :min caracteres.',
             ],
@@ -19,7 +19,7 @@ return [
             'unique' => 'Esse email já existe.'
         ],
 
-        'senha' => [
+        'password' => [
             'confirmed' => 'As senhas não conferem.',
             'min' => [
                 'string' => 'Sua senha deve conter pelo menos :min caracteres.',
