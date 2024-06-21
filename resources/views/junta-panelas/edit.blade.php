@@ -5,7 +5,7 @@
         <form method="POST" action="" class="w-full flex flex-col gap-y-6">
             @csrf
             <x-form-field label="{{ __('Event Title') }}" name="title" placeholder="{{ __('Christmas Party') }}" :value="old('title')" required/>
-            <x-form-field label="{{ __('Date') }}" type="date" name="date" placeholder="test" :value="old('date')" required/>
+            <x-form-field label="{{ __('Date') }}" type="date" name="date" :value="old('date')" required/>
             <x-form-field label="{{ __('Time') }}" type="time" name="time" :value="old('time')" required/>
 
             <div class="flex items-center justify-between gap-x-8">
