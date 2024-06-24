@@ -20,12 +20,12 @@ class ParticipantController extends Controller
     public function store(Request $request, JuntaPanelas $juntaPanelas): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:100'],
-            'item_1' => ['string', 'max:100'],
-            'item_2' => ['string', 'max:100'],
-            'item_3' => ['string', 'max:100'],
-            'item_4' => ['string', 'max:100'],
-            'item_5' => ['string', 'max:100'],
+            'name' => ['required', 'max:100'],
+            'item_1' => ['max:100'],
+            'item_2' => ['max:100'],
+            'item_3' => ['max:100'],
+            'item_4' => ['max:100'],
+            'item_5' => ['max:100'],
         ]);
 
         $items = new Collection();
