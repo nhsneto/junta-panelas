@@ -14,7 +14,9 @@ class ParticipantController extends Controller
 {
     public function index(JuntaPanelas $juntaPanelas): View
     {
-        return view('junta-panelas.participants');
+        return view('junta-panelas.participants', [
+            'juntaPanelas' => $juntaPanelas,
+        ]);
     }
 
     public function store(Request $request, JuntaPanelas $juntaPanelas): RedirectResponse
