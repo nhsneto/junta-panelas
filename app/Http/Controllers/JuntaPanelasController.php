@@ -81,4 +81,10 @@ class JuntaPanelasController extends Controller
     {
         return view('junta-panelas.participants');
     }
+
+    public function destroy(JuntaPanelas $juntaPanelas): RedirectResponse
+    {
+        $juntaPanelas->delete();
+        return redirect()->route('junta-panelas.index');
+    }
 }
