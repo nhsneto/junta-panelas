@@ -35,7 +35,7 @@ class ParticipantController extends Controller
         if ($request->item_4) $items->add($request->item_4);
         if ($request->item_5) $items->add($request->item_5);
 
-        if (empty($items)) {
+        if ($items->isEmpty()) {
             throw ValidationException::withMessages([
                 'item_1' => 'O participante deve levar pelo menos 1 item.'
             ]);
