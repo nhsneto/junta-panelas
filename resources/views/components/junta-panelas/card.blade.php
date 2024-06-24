@@ -1,10 +1,5 @@
 @props(['juntaPanelas'])
 
-@php
-    $timestamp = strtotime($juntaPanelas->date);
-    $date = date('d/m/Y · H:i', $timestamp);
-@endphp
-
 <article {{ $attributes->merge(['class' => 'group bg-[#fbfbfb] px-5 py-4 rounded-xl shadow-md']) }}>
     <div class="flex gap-x-2 items-center">
         <h1>
@@ -15,7 +10,7 @@
         </a>
     </div>
 
-    <p class="mt-1 text-sm text-black/50 font-bold">{{ $date }}</p>
+    <p class="mt-1 text-sm text-black/50 font-bold">{{ date('d/m/Y · H:i', strtotime($juntaPanelas->date)) }}</p>
 
     <div class="mt-4 inline-flex items-center gap-x-1.5">
         <x-primary-link href="{{ route('participant.index') }}" class="flex items-center gap-x-1.5 text-sm font-bold">
