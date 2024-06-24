@@ -52,7 +52,7 @@ test('should fail when trying to create a junta-panelas planning without title',
     $response = $this->post(route('junta-panelas.store'), [
         'title' => null,
         'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '5:30',
+        'time' => '05:30',
     ]);
 
     $response->assertInvalid('title');
