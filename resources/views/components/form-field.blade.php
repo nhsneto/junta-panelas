@@ -1,5 +1,5 @@
 @props([
-    'label',
+    'label' => '',
     'name',
     'type' => 'text',
     'id' => $name,
@@ -10,7 +10,7 @@
 ])
 
 <div class="flex flex-col gap-y-2">
-    <label for="{{ $id }}" class="self-start font-semibold">{{ $label }}</label>
+    @if($label) <label for="{{ $id }}" class="self-start font-semibold">{{ $label }}</label> @endif
     <input
         type="{{ $type }}"
         name="{{ $name }}"
