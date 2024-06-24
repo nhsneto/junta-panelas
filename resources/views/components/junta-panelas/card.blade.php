@@ -18,7 +18,7 @@
     <p class="mt-1 text-sm text-black/50 font-bold">{{ $date }}</p>
 
     <div class="mt-4 inline-flex items-center gap-x-1.5">
-        <x-primary-link href="{{ route('junta-panelas.participants') }}" class="flex items-center gap-x-1.5 text-sm font-bold">
+        <x-primary-link href="{{ route('participant.index') }}" class="flex items-center gap-x-1.5 text-sm font-bold">
             <x-icons.people />
             <span>{{ __('Participants') }}</span>
         </x-primary-link>

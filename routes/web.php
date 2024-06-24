@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JuntaPanelasController;
+use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,8 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('junta-panelas/{juntaPanelas}', [JuntaPanelasController::class, 'destroy'])
         ->name('junta-panelas.destroy');
 
-    Route::get('junta-panelas/participants', [JuntaPanelasController::class, 'participants'])
-        ->name('junta-panelas.participants');
+    Route::get('junta-panelas/participants', [ParticipantController::class, 'index'])
+        ->name('participant.index');
 
     Route::get('profile', [ProfileController::class, 'index'])
         ->name('profile');

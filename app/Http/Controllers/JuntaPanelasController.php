@@ -77,11 +77,6 @@ class JuntaPanelasController extends Controller
         ]);
     }
 
-    public function participants(Request $request): View
-    {
-        return view('junta-panelas.participants');
-    }
-
     public function destroy(JuntaPanelas $juntaPanelas): RedirectResponse
     {
         $juntaPanelas->delete();

@@ -110,7 +110,7 @@ test('junta-panelas participants page can be rendered', function () {
         'password' => 'password',
     ]);
 
-    $response = $this->get(route('junta-panelas.participants'));
+    $response = $this->get(route('participant.index'));
 
     $response->assertStatus(200);
 });
