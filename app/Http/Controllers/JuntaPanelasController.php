@@ -17,9 +17,11 @@ class JuntaPanelasController extends Controller
         ]);
     }
 
-    public function show(Request $request): View
+    public function show(JuntaPanelas $juntaPanelas): View
     {
-        return view('junta-panelas.show');
+        return view('junta-panelas.show', [
+            'juntaPanelas' => $juntaPanelas,
+        ]);
     }
 
     public function create(Request $request): View

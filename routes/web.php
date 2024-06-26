@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('junta-panelas', [JuntaPanelasController::class, 'index'])
         ->name('junta-panelas.index');
 
-    Route::get('junta-panelas/show', [JuntaPanelasController::class, 'show'])
+    Route::get('junta-panelas/{juntaPanelas}/show', [JuntaPanelasController::class, 'show'])
         ->name('junta-panelas.show');
 
     Route::get('junta-panelas/create', [JuntaPanelasController::class, 'create'])
