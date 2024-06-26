@@ -4,8 +4,8 @@
 
         <section class="flex flex-col gap-y-10">
             <div class="text-center space-y-3">
-                <h2 class="text-2xl font-bold">Confraternização do curso de inglês</h2>
-                <p class="text-md font-bold text-black/50">31/05/2024 · 11:30</p>
+                <h2 class="text-2xl font-bold">{{ $juntaPanelas->title }}</h2>
+                <p class="text-md font-bold text-black/50">{{ date('d/m/Y · H:i', strtotime($juntaPanelas->date)) }}</p>
             </div>
             <x-primary-link-button href="#name" class="self-start">{{ __('Add') }}</x-primary-link-button>
             <ul class="space-y-4">
