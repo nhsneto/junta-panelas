@@ -11,7 +11,7 @@
             <ul class="space-y-4">
                 @foreach($juntaPanelas->participants as $participant)
                     <li>
-                        <x-junta-panelas.participant-card :participant="$participant" />
+                        <x-junta-panelas.participant-card :participant="$participant" :juntaPanelas="$juntaPanelas" />
                     </li>
                 @endforeach
             </ul>

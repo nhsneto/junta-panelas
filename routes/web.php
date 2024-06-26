@@ -50,6 +50,9 @@ Route::middleware('auth')->group(function () {
     Route::post('junta-panelas/{juntaPanelas}/participants', [ParticipantController::class, 'store'])
         ->name('participant.store');
 
+    Route::delete('junta-panelas/{juntaPanelas}/participants/{participantId}', [ParticipantController::class, 'destroy'])
+        ->name('participant.destroy');
+
     Route::get('profile', [ProfileController::class, 'index'])
         ->name('profile');
 

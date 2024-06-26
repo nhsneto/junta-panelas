@@ -52,4 +52,17 @@ class ParticipantController extends Controller
             'juntaPanelas' => $juntaPanelas,
         ]);
     }
+
+    // We should receive the string id (participantId) not the participant model object itself
+    // because it's an 'embeds many' relationship, so there is not a collection of participants
+    // that we could model bind.
+    public function destroy(JuntaPanelas $juntaPanelas, string $participantId): RedirectResponse
+    {
+        $participant = $juntaPanelas->participants()->find($participantId);
+        $juntaPanelas->participants()->detach($participant);
+
+        return redirect()->route('participant.index', [
+            'juntaPanelas' => $juntaPanelas,
+        ]);
+    }
 }
