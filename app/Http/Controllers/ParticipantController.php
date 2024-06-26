@@ -45,7 +45,7 @@ class ParticipantController extends Controller
 
         $participant = new Participant();
         $participant->name = $request->name;
-        $participant->items = $items->sort()->toArray();
+        $participant->items = $items->sort()->values()->toArray();
         $juntaPanelas->participants()->attach($participant);
 
         return redirect()->route('participant.index', [
