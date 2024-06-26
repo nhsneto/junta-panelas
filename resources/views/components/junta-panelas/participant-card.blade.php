@@ -1,26 +1,5 @@
 @props(['participant', 'juntaPanelas'])
 
-@php
-    $length = count($participant->items);
-
-    if ($length === 0) {
-        $formattedItems = '';
-    } else if ($length === 1) {
-        $formattedItems = $participant->items[0];
-    } else {
-        $last = $length - 1;
-        $formattedItems = '';
-
-        for ($i = 0; $i < $length; $i++) {
-            if ($i === $last) {
-                $formattedItems .= $participant->items[$i];
-            } else {
-                $formattedItems .= $participant->items[$i] . ' · ';
-            }
-        }
-    }
-@endphp
-
 <article class="group flex flex-col basis-full gap-y-2 px-6 py-3 bg-[#fbfbfb] rounded-lg shadow-md">
     <div class="flex justify-between gap-x-2">
         <h2 class="font-bold text-black/50">{{ $participant->name }}</h2>
@@ -32,5 +11,5 @@
             </button>
         </form>
     </div>
-    <p class="text-sm font-semibold text-black/50">{{ $formattedItems }}</p>
+    <p class="text-sm font-semibold text-black/50">{{ implode(' · ', $participant->items) }}</p>
 </article>
