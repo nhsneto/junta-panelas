@@ -6,7 +6,6 @@ use App\Models\JuntaPanelas;
 use App\Models\Participant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -30,14 +29,14 @@ class ParticipantController extends Controller
             'item_5' => ['max:100'],
         ]);
 
-        $items = new Collection();
-        if ($request->item_1) $items->add($request->item_1);
-        if ($request->item_2) $items->add($request->item_2);
-        if ($request->item_3) $items->add($request->item_3);
-        if ($request->item_4) $items->add($request->item_4);
-        if ($request->item_5) $items->add($request->item_5);
+        $items = [];
+        if ($request->item_1) $items[] = $request->item_1;
+        if ($request->item_2) $items[] = $request->item_2;
+        if ($request->item_3) $items[] = $request->item_3;
+        if ($request->item_4) $items[] = $request->item_4;
+        if ($request->item_5) $items[] = $request->item_5;
 
-        if ($items->isEmpty()) {
+        if (!$items) {
             throw ValidationException::withMessages([
                 'item_1' => 'O participante deve levar pelo menos 1 item.'
             ]);
@@ -45,7 +44,7 @@ class ParticipantController extends Controller
 
         $participant = new Participant();
         $participant->name = $request->name;
-        $participant->items = $items->sort()->values()->toArray();
+        $participant->items = $items;
         $juntaPanelas->participants()->attach($participant);
 
         return redirect()->route('participant.index', [
