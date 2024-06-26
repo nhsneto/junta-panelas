@@ -39,5 +39,31 @@ return [
         'time' => [
             'date_format' => 'A hora deve estar no formato HH:MM.',
         ],
+
+        'item_1' => [
+            'max' => [
+                'string' => 'O item deve conter no máximo 100 caracteres.'
+            ],
+        ],
+        'item_2' => [
+            'max' => [
+                'string' => 'O item deve conter no máximo 100 caracteres.'
+            ],
+        ],
+        'item_3' => [
+            'max' => [
+                'string' => 'O item deve conter no máximo 100 caracteres.'
+            ],
+        ],
+        'item_4' => [
+            'max' => [
+                'string' => 'O item deve conter no máximo 100 caracteres.'
+            ],
+        ],
+        'item_5' => [
+            'max' => [
+                'string' => 'O item deve conter no máximo 100 caracteres.'
+            ],
+        ],
     ],
 ];

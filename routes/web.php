@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JuntaPanelasController;
+use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('junta-panelas', [JuntaPanelasController::class, 'index'])
         ->name('junta-panelas.index');
 
-    Route::get('junta-panelas/show', [JuntaPanelasController::class, 'show'])
+    Route::get('junta-panelas/{juntaPanelas}/show', [JuntaPanelasController::class, 'show'])
         ->name('junta-panelas.show');
 
     Route::get('junta-panelas/create', [JuntaPanelasController::class, 'create'])
@@ -43,8 +44,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('junta-panelas/{juntaPanelas}', [JuntaPanelasController::class, 'destroy'])
         ->name('junta-panelas.destroy');
 
-    Route::get('junta-panelas/participants', [JuntaPanelasController::class, 'participants'])
-        ->name('junta-panelas.participants');
+    Route::get('junta-panelas/{juntaPanelas}/participants', [ParticipantController::class, 'index'])
+        ->name('participant.index');
+
+    Route::post('junta-panelas/{juntaPanelas}/participants', [ParticipantController::class, 'store'])
+        ->name('participant.store');
+
+    Route::delete('junta-panelas/{juntaPanelas}/participants/{participantId}', [ParticipantController::class, 'destroy'])
+        ->name('participant.destroy');
 
     Route::get('profile', [ProfileController::class, 'index'])
         ->name('profile');

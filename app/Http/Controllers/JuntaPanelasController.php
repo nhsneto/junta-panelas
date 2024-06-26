@@ -17,9 +17,11 @@ class JuntaPanelasController extends Controller
         ]);
     }
 
-    public function show(Request $request): View
+    public function show(JuntaPanelas $juntaPanelas): View
     {
-        return view('junta-panelas.show');
+        return view('junta-panelas.show', [
+            'juntaPanelas' => $juntaPanelas,
+        ]);
     }
 
     public function create(Request $request): View
@@ -75,11 +77,6 @@ class JuntaPanelasController extends Controller
         return redirect()->route('junta-panelas.edit', [
             'juntaPanelas' => $juntaPanelas,
         ]);
-    }
-
-    public function participants(Request $request): View
-    {
-        return view('junta-panelas.participants');
     }
 
     public function destroy(JuntaPanelas $juntaPanelas): RedirectResponse
