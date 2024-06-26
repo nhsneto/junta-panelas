@@ -6,6 +6,7 @@ use App\Models\JuntaPanelas;
 use App\Models\Participant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -30,11 +31,11 @@ class ParticipantController extends Controller
         ]);
 
         $items = [];
-        if ($request->item_1) $items[] = $request->item_1;
-        if ($request->item_2) $items[] = $request->item_2;
-        if ($request->item_3) $items[] = $request->item_3;
-        if ($request->item_4) $items[] = $request->item_4;
-        if ($request->item_5) $items[] = $request->item_5;
+        if ($request->item_1) $items[] = Str::ucfirst($request->item_1);
+        if ($request->item_2) $items[] = Str::ucfirst($request->item_2);
+        if ($request->item_3) $items[] = Str::ucfirst($request->item_3);
+        if ($request->item_4) $items[] = Str::ucfirst($request->item_4);
+        if ($request->item_5) $items[] = Str::ucfirst($request->item_5);
 
         if (!$items) {
             throw ValidationException::withMessages([
@@ -43,7 +44,7 @@ class ParticipantController extends Controller
         }
 
         $participant = new Participant();
-        $participant->name = $request->name;
+        $participant->name = Str::title($request->name);
         $participant->items = $items;
         $juntaPanelas->participants()->attach($participant);
 

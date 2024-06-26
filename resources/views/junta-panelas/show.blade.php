@@ -14,7 +14,7 @@
 
         <table>
             <caption class="mb-10 text-base font-bold">{{ __('Participants') }}</caption>
-            @foreach($juntaPanelas->participants as $participant)
+            @foreach($juntaPanelas->participants->sortBy('name') as $participant)
                 <tr class="flex justify-between px-3 py-1 font-semibold rounded odd:bg-black/5">
                     <td>{{ $participant->name }}</td>
                     <td>{{ implode(' · ', $participant->items) }}</td>

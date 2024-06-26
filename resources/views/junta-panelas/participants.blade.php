@@ -9,7 +9,7 @@
             </div>
             <x-primary-link-button href="#name" class="self-start">{{ __('Add') }}</x-primary-link-button>
             <ul class="space-y-4">
-                @foreach($juntaPanelas->participants as $participant)
+                @foreach($juntaPanelas->participants->sortBy('name') as $participant)
                     <li>
                         <x-junta-panelas.participant-card :participant="$participant" :juntaPanelas="$juntaPanelas" />
                     </li>
