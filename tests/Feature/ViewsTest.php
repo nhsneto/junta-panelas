@@ -135,7 +135,15 @@ test('junta-panelas show page can be rendered', function () {
         'password' => 'password',
     ]);
 
-    $response = $this->get(route('junta-panelas.show'));
+    $this->post(route('junta-panelas.store'), [
+        'title' => 'Test title',
+        'date' => now()->addDay()->format('Y-m-d'),
+        'time' => '12:40',
+    ]);
+
+    $response = $this->get(route('junta-panelas.show', [
+        'juntaPanelas' => JuntaPanelas::first(),
+    ]));
 
     $response->assertStatus(200);
 });
