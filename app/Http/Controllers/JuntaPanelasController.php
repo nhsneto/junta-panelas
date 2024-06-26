@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JuntaPanelas;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -83,5 +84,12 @@ class JuntaPanelasController extends Controller
     {
         $juntaPanelas->delete();
         return redirect()->route('junta-panelas.index');
+    }
+
+    public function pdf(JuntaPanelas $juntaPanelas)
+    {
+        return Pdf::loadView('junta-panelas.pdf', ['juntaPanelas' => $juntaPanelas])
+            ->setPaper('a4')
+            ->download("{$juntaPanelas->title}.pdf");
     }
 }
