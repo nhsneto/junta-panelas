@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('junta-panelas/{juntaPanelas}', [JuntaPanelasController::class, 'destroy'])
         ->name('junta-panelas.destroy');
 
+    Route::get('junta-panelas/{juntaPanelas}/pdf', [JuntaPanelasController::class, 'pdf'])
+        ->name('junta-panelas.pdf');
+
     Route::get('junta-panelas/{juntaPanelas}/participants', [ParticipantController::class, 'index'])
         ->name('participant.index');
 

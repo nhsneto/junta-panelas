@@ -3,7 +3,7 @@
         <div class="space-y-4">
             <div class="flex items-center justify-center gap-x-2">
                 <h1 class="text-2xl font-bold">{{ $juntaPanelas->title }}</h1>
-                <form method="GET" action="">
+                <form method="GET" action="{{ route('junta-panelas.pdf', ['juntaPanelas' => $juntaPanelas]) }}">
                     <button class="flex px-1 py-1 rounded hover:bg-black/5 hover:text-[#d3756b] active:bg-black/10">
                         <x-icons.download-document/>
                     </button>
