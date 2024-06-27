@@ -9,7 +9,7 @@
                     </button>
                 </form>
             </div>
-            <p class="text-md text-center font-bold text-black/50">{{ date('d/m/Y · H:i', strtotime($juntaPanelas->date)) }}</p>
+            <x-date :date="$juntaPanelas->date" class="block text-md text-center" />
         </div>
 
         <table>

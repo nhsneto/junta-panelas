@@ -3,7 +3,7 @@
         <section class="flex flex-col gap-y-10">
             <div class="text-center space-y-3">
                 <h1 class="text-2xl font-bold">{{ $juntaPanelas->title }}</h1>
-                <p class="text-md font-bold text-black/50">{{ date('d/m/Y · H:i', strtotime($juntaPanelas->date)) }}</p>
+                <x-date :date="$juntaPanelas->date" class="block text-md" />
             </div>
             <h2 class="self-center text-2xl">{{ __('Participants') }}</h2>
             <x-primary-link-button href="#name" class="self-start">{{ __('Add') }}</x-primary-link-button>
