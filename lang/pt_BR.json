@@ -36,5 +36,10 @@
     "Add": "Adicionar",
     "John": "João",
     "Cake": "Bolo",
-    "Item(s)": "Item(s)"
+    "Item(s)": "Item(s)",
+    "Email or password incorrect.": "Email ou senha incorreto.",
+    "Limit exceeded. Try again in": "Limite excedido. Tente novamente em",
+    "minutes.": "minutos.",
+    "minute.": "minuto.",
+    "Participant should bring at least 1 item.": "O participante deve levar pelo menos 1 item."
 }

@@ -39,7 +39,7 @@ class ParticipantController extends Controller
 
         if (!$items) {
             throw ValidationException::withMessages([
-                'item_1' => 'O participante deve levar pelo menos 1 item.'
+                'item_1' => __('Participant should bring at least 1 item.'),
             ]);
         }
 

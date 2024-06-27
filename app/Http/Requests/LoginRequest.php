@@ -39,7 +39,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey(), 300); // Five minutes
 
             throw ValidationException::withMessages([
-                'email' => 'Email ou senha incorreto.'
+                'email' => __('Email or password incorrect.'),
             ]);
         }
 
@@ -53,8 +53,8 @@ class LoginRequest extends FormRequest
         }
 
         $minutes = ceil(RateLimiter::availableIn($this->throttleKey()) / 60);
-        $message = "Limite de tentativas excedido. Tente novamente em {$minutes} ";
-        $message .= $minutes > 1 ? 'minutos.' : 'minuto.';
+        $message = __('Limit exceeded. Try again in') . " {$minutes} ";
+        $message .= $minutes > 1 ? __('minutes.') : __('minute.');
 
         throw ValidationException::withMessages([
             'email' => $message,
