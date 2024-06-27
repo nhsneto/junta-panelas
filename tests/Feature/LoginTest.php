@@ -111,7 +111,7 @@ test('should fail when trying to log into the system using wrong credentials aft
 
     // When the login rate limit exceeds, the 'email' field is the chosen to get the error message
     $response->assertInvalid([
-        'email' => 'Limite de tentativas excedido. Tente novamente em 5 minutos.'
+        'email' => __('Limit exceeded. Try again in 5 minutes.'),
     ]);
 });
 
