@@ -1,12 +1,11 @@
 <x-layout>
     <div class="max-w-xl flex flex-col basis-full gap-y-8">
-        <h1 class="self-center text-2xl">{{ __('Participants') }}</h1>
-
         <section class="flex flex-col gap-y-10">
             <div class="text-center space-y-3">
-                <h2 class="text-2xl font-bold">{{ $juntaPanelas->title }}</h2>
-                <p class="text-md font-bold text-black/50">{{ date('d/m/Y · H:i', strtotime($juntaPanelas->date)) }}</p>
+                <h1 class="text-2xl font-bold">{{ $juntaPanelas->title }}</h1>
+                <x-date :date="$juntaPanelas->date" class="block text-md" />
             </div>
+            <h2 class="self-center text-2xl">{{ __('Participants') }}</h2>
             <x-primary-link-button href="#name" class="self-start">{{ __('Add') }}</x-primary-link-button>
             <ul class="space-y-4">
                 @foreach($juntaPanelas->participants->sortBy('name') as $participant)
