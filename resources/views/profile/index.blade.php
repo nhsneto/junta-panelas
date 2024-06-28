@@ -14,11 +14,12 @@
 
         <section class="w-full flex flex-col basis-full items-center gap-y-8 px-12 py-10 bg-[#fbfbfb] rounded-xl shadow-md">
             <h2 class="text-xl font-semibold self-start">{{ __('Change Password') }}</h2>
-            <form method="POST" action="" class="w-full flex flex-col gap-y-6 text-sm">
+            <form method="POST" action="{{ route('password.update') }}" class="w-full flex flex-col gap-y-6 text-sm">
+                @method('put')
                 @csrf
-                <x-form-field label="{{ __('Current Password') }}" type="email" name="current_password" :value="old('current_email')" required/>
-                <x-form-field label="{{ __('New Password') }}" type="email" name="new_password" required/>
-                <x-form-field label="{{ __('Confirm New Password') }}" type="email" name="new_password_confirmation" required/>
+                <x-form-field label="{{ __('Current Password') }}" type="password" name="current_password" required/>
+                <x-form-field label="{{ __('New Password') }}" type="password" name="new_password" required/>
+                <x-form-field label="{{ __('Confirm New Password') }}" type="password" name="new_password_confirmation" required/>
                 <x-primary-button class="self-start px-5 py-2.5">{{ __('Change Password') }}</x-primary-button>
             </form>
         </section>

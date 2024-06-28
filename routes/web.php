@@ -62,6 +62,9 @@ Route::middleware('auth')->group(function () {
     Route::put('email-update', [ProfileController::class, 'updateEmail'])
         ->name('email.update');
 
+    Route::put('password-update', [ProfileController::class, 'updatePassword'])
+        ->name('password.update');
+
     Route::delete('logout', [SessionController::class, 'destroy'])
         ->name('logout');
 });

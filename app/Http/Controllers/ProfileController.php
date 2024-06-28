@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -33,6 +35,20 @@ class ProfileController extends Controller
 
         $user->update([
             'email' => Str::lower($request->new_email),
+        ]);
+
+        return redirect()->route('profile');
+    }
+
+    public function updatePassword(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'new_password' => ['required', 'confirmed', Password::min(6)],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($request->new_password),
         ]);
 
         return redirect()->route('profile');

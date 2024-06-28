@@ -226,3 +226,158 @@ test('should fail when trying to change the user\'s email with a new email that 
 
     $response->assertInvalid('new_email');
 });
+
+test('should change the user\'s password', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $former_updated_at = User::first()->updated_at;
+    $newPassword = 'newpassword';
+
+    $response = $this->put(route('password.update'), [
+        'current_password' => 'password',
+        'new_password' => $newPassword,
+        'new_password_confirmation' => $newPassword,
+    ]);
+
+    $user = User::first();
+
+    expect(Hash::check($newPassword, $user->password))->toBeTrue()
+        ->and($user->updated_at)->not()->toEqual($former_updated_at);
+
+    $response->assertRedirectToRoute('profile');
+});
+
+test('should fail when trying to change the user\'s password with no current password', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $response = $this->put(route('password.update'), [
+        'current_password' => null,
+        'new_password' => 'newpassword',
+        'new_password_confirmation' => 'newpassword',
+    ]);
+
+    $response->assertInvalid('current_password');
+});
+
+test('should fail when trying to change the user\'s password with wrong current password', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $response = $this->put(route('password.update'), [
+        'current_password' => 'wrongpassword',
+        'new_password' => 'newpassword',
+        'new_password_confirmation' => 'newpassword',
+    ]);
+
+    $response->assertInvalid('current_password');
+});
+
+test('should fail when trying to change the user\'s password with no new password', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $response = $this->put(route('password.update'), [
+        'current_password' => 'password',
+        'new_password' => null,
+        'new_password_confirmation' => 'newpassword',
+    ]);
+
+    $response->assertInvalid('new_password');
+});
+
+test('should fail when trying to change the user\'s password with the new password having less than 6 characters', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $response = $this->put(route('password.update'), [
+        'current_password' => 'password',
+        'new_password' => '12345',
+        'new_password_confirmation' => '12345',
+    ]);
+
+    $response->assertInvalid('new_password');
+});
+
+test('should fail when trying to change the user\'s password without password confirmation', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $response = $this->put(route('password.update'), [
+        'current_password' => 'password',
+        'new_password' => 'newpassword',
+        'new_password_confirmation' => null,
+    ]);
+
+    $response->assertInvalid('new_password');
+});
+
+test('should fail when trying to change the user\'s password with wrong password confirmation', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $response = $this->put(route('password.update'), [
+        'current_password' => 'password',
+        'new_password' => 'newpassword',
+        'new_password_confirmation' => 'wrongpassword',
+    ]);
+
+    $response->assertInvalid('new_password');
+});
