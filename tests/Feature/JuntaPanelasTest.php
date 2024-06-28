@@ -98,21 +98,14 @@ test('should fail when trying to create a junta-panelas planning with time in wr
 });
 
 test('should update a junta-panelas planning', function () {
-    $user = User::factory()->create();
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '09:45',
-    ]);
-
-    $juntaPanelas = JuntaPanelas::first();
     $former_updated_at = $juntaPanelas->updated_at; // Should be modified after the put request
     $newTitle = 'New test title';
     $newDate = now()->modify('+ 2 days')->format('Y-m-d');
     $newTime = '10:30';
 
-    $response = $this->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
+    $response = $this->actingAs($juntaPanelas->user)->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
         'title' => $newTitle,
         'date' => $newDate,
         'time' => $newTime,
@@ -131,29 +124,25 @@ test('should update a junta-panelas planning', function () {
 });
 
 test('should do nothing when trying to update a junta-panelas planning with no new data', function () {
-    $user = User::factory()->create();
-
     $title = 'Test title';
     $date = now()->addDay()->format('Y-m-d');
     $time = '08:20';
+    $iso8601Date = date('c', strtotime($date . $time));
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
+    $juntaPanelas = JuntaPanelas::factory()->create([
         'title' => $title,
-        'date' => $date,
-        'time' => $time,
+        'date' => $iso8601Date,
     ]);
 
-    $juntaPanelas = JuntaPanelas::first();
     $former_updated_at = $juntaPanelas->updated_at; // Should be the same after the put request in this case
 
-    $response = $this->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
+    $response = $this->actingAs($juntaPanelas->user)->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
         'title' => $title,
         'date' => $date,
         'time' => $time,
     ]);
 
     $jp = JuntaPanelas::first();
-    $iso8601Date = date('c', strtotime($date . $time));
 
     expect($jp->title)->toBe($title)
         ->and($jp->date)->toBe($iso8601Date)
@@ -165,17 +154,9 @@ test('should do nothing when trying to update a junta-panelas planning with no n
 });
 
 test('should fail when trying to update a junta-panelas planning without title', function () {
-    $user = User::factory()->create();
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '08:20',
-    ]);
-
-    $id = JuntaPanelas::first()->id;
-
-    $response = $this->put("junta-panelas/{$id}", [
+    $response = $this->actingAs($juntaPanelas->user)->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
         'title' => null,
         'date' => now()->modify('+ 1 day')->format('Y-m-d'),
         'time' => '16:00',
@@ -185,17 +166,9 @@ test('should fail when trying to update a junta-panelas planning without title',
 });
 
 test('should fail when trying to update a junta-panelas planning whose title has more than 255 characters', function () {
-    $user = User::factory()->create();
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '08:20',
-    ]);
-
-    $id = JuntaPanelas::first()->id;
-
-    $response = $this->put("junta-panelas/{$id}", [
+    $response = $this->actingAs($juntaPanelas->user)->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
         'title' => 'Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test T',
         'date' => now()->modify('+ 1 day')->format('Y-m-d'),
         'time' => '16:00',
@@ -205,17 +178,9 @@ test('should fail when trying to update a junta-panelas planning whose title has
 });
 
 test('should fail when trying to update a junta-panelas planning with no date', function () {
-    $user = User::factory()->create();
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '08:20',
-    ]);
-
-    $id = JuntaPanelas::first()->id;
-
-    $response = $this->put("junta-panelas/{$id}", [
+    $response = $this->actingAs($juntaPanelas->user)->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
         'title' => 'Test title',
         'date' => null,
         'time' => '16:00',
@@ -225,17 +190,9 @@ test('should fail when trying to update a junta-panelas planning with no date', 
 });
 
 test('should fail when trying to update a junta-panelas planning with a date that is not after or equal tomorrow', function () {
-    $user = User::factory()->create();
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '08:20',
-    ]);
-
-    $id = JuntaPanelas::first()->id;
-
-    $response = $this->put("junta-panelas/{$id}", [
+    $response = $this->actingAs($juntaPanelas->user)->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
         'title' => 'Test title',
         'date' => now()->format('Y-m-d'),
         'time' => '16:00',
@@ -245,17 +202,9 @@ test('should fail when trying to update a junta-panelas planning with a date tha
 });
 
 test('should fail when trying to update a junta-panelas planning without time', function () {
-    $user = User::factory()->create();
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '08:20',
-    ]);
-
-    $id = JuntaPanelas::first()->id;
-
-    $response = $this->put("junta-panelas/{$id}", [
+    $response = $this->actingAs($juntaPanelas->user)->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
         'title' => 'Test title',
         'date' => now()->modify('+ 1 day')->format('Y-m-d'),
         'time' => null,
@@ -265,17 +214,9 @@ test('should fail when trying to update a junta-panelas planning without time', 
 });
 
 test('should fail when trying to update a junta-panelas planning with time in wrong format', function () {
-    $user = User::factory()->create();
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '08:20',
-    ]);
-
-    $id = JuntaPanelas::first()->id;
-
-    $response = $this->put("junta-panelas/{$id}", [
+    $response = $this->actingAs($juntaPanelas->user)->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
         'title' => 'Test title',
         'date' => now()->modify('+ 1 day')->format('Y-m-d'),
         'time' => '06:15:20', // Only accepts time in HH:MM format
@@ -285,42 +226,32 @@ test('should fail when trying to update a junta-panelas planning with time in wr
 });
 
 test('should delete junta-panelas planning', function () {
-    $user = User::factory()->create();
-
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
+    $juntaPanelas = JuntaPanelas::factory()->create([
         'title' => 'Test title',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '22:50',
     ]);
 
-    $id = JuntaPanelas::where('title', 'Test title')->first()->id;
-
-    $response = $this->delete(route('junta-panelas.destroy', [
-        'juntaPanelas' => $id,
+    $response = $this->actingAs($juntaPanelas->user)->delete(route('junta-panelas.destroy', [
+        'juntaPanelas' => $juntaPanelas,
     ]));
 
-    $jp = JuntaPanelas::find($id);
+    $jp = JuntaPanelas::all();
 
-    expect($jp)->toBeNull();
+    expect($jp)->toBeEmpty();
     $response->assertRedirectToRoute('junta-panelas.index');
 });
 
 test('should generate and download a junta-panelas pdf', function () {
-    $user = User::factory()->create();
+    $title = 'Test title';
 
-    $name = 'Test title';
-
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => $name,
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '11:30',
+    $juntaPanelas = JuntaPanelas::factory()->create([
+        'title' => $title,
     ]);
 
-    $jp = JuntaPanelas::first();
-
-    $response = $this->get(route('junta-panelas.pdf', [
-        'juntaPanelas' => $jp,
+    $response = $this->actingAs($juntaPanelas->user)->get(route('junta-panelas.pdf', [
+        'juntaPanelas' => $juntaPanelas,
     ]));
 
-    $response->assertDownload("{$name}.pdf");
+    $response->assertDownload("{$title}.pdf");
 });

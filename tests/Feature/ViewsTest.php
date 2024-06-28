@@ -39,16 +39,10 @@ test('junta-panelas create page can be rendered', function () {
 });
 
 test('junta-panelas edit page can be rendered', function () {
-    $user = User::factory()->create();
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '08:30',
-    ]);
-
-    $response = $this->actingAs($user)->get(route('junta-panelas.edit', [
-        'juntaPanelas' => JuntaPanelas::first(),
+    $response = $this->actingAs($juntaPanelas->user)->get(route('junta-panelas.edit', [
+        'juntaPanelas' => $juntaPanelas,
     ]));
 
     $response->assertStatus(200);
@@ -63,32 +57,20 @@ test('junta-panelas profile page can be rendered', function () {
 });
 
 test('junta-panelas participants page can be rendered', function () {
-    $user = User::factory()->create();
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '07:00',
-    ]);
-
-    $response = $this->actingAs($user)->get(route('participant.index', [
-        'juntaPanelas' => JuntaPanelas::first(),
+    $response = $this->actingAs($juntaPanelas->user)->get(route('participant.index', [
+        'juntaPanelas' => $juntaPanelas,
     ]));
 
     $response->assertStatus(200);
 });
 
 test('junta-panelas show page can be rendered', function () {
-    $user = User::factory()->create();
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->actingAs($user)->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '12:40',
-    ]);
-
-    $response = $this->actingAs($user)->get(route('junta-panelas.show', [
-        'juntaPanelas' => JuntaPanelas::first(),
+    $response = $this->actingAs($juntaPanelas->user)->get(route('junta-panelas.show', [
+        'juntaPanelas' => $juntaPanelas,
     ]));
 
     $response->assertStatus(200);
