@@ -76,6 +76,17 @@ test('should fail when trying to register user using an invalid email format', f
     $response->assertInvalid('email');
 });
 
+test('should fail when trying to register user with an email that is longer than 255 characters', function () {
+    $response = $this->post(route('register'), [
+        'name' => 'Test User',
+        'email' => 'test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+    ]);
+
+    $response->assertInvalid('email');
+});
+
 test('should fail when trying to register user with a duplicate email', function () {
     User::create([
         'name' => 'Test User',

@@ -15,7 +15,7 @@ return [
         'email' => [
             'email' => 'Email inválido.',
             'max' => [
-                'string' => 'Seu email é muito longo.'
+                'string' => 'Seu email é muito longo. Utilize no máximo :max caracteres.'
             ],
             'unique' => 'Esse email já existe.'
         ],
