@@ -2,6 +2,7 @@
 
 return [
     'required' => 'Campo obrigatório.',
+    'current_password' => 'Senha incorreta.',
 
     'custom' => [
         'name' => [
@@ -65,5 +66,22 @@ return [
                 'string' => 'O item deve conter no máximo 100 caracteres.'
             ],
         ],
+
+        'current_email' => [
+            'email' => 'Email inválido.',
+        ],
+
+        'new_email' => [
+            'email' => 'Email inválido.',
+            'confirmed' => 'Os emails não conferem.',
+            'unique' => 'Esse email já existe.',
+        ],
+
+        'new_password' => [
+            'confirmed' => 'As senhas não conferem.',
+            'min' => [
+                'string' => 'Sua senha deve conter pelo menos :min caracteres.',
+            ],
+        ]
     ],
 ];

@@ -59,6 +59,15 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'index'])
         ->name('profile');
 
+    Route::put('email-update', [ProfileController::class, 'updateEmail'])
+        ->name('email.update');
+
+    Route::put('password-update', [ProfileController::class, 'updatePassword'])
+        ->name('password.update');
+
+    Route::delete('user-delete', [ProfileController::class, 'deleteUser'])
+        ->name('user.delete');
+
     Route::delete('logout', [SessionController::class, 'destroy'])
         ->name('logout');
 });
