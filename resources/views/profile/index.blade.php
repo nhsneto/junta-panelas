@@ -25,7 +25,8 @@
         </section>
 
         <section class="w-full px-12 py-4 bg-[#fbfbfb] rounded-xl shadow-md">
-            <form method="POST" action="">
+            <form method="POST" action="{{ route('user.delete') }}">
+                @method('delete')
                 @csrf
                 <button class="flex items-center gap-x-1.5 px-2 py-1 text-sm text-[#c82333] rounded hover:bg-black/5">
                     <x-icons.trash />

@@ -381,3 +381,21 @@ test('should fail when trying to change the user\'s password with wrong password
 
     $response->assertInvalid('new_password');
 });
+
+test('should delete the user', function () {
+    User::create([
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->post(route('login'), [
+        'email' => 'test@example.com',
+        'password' => 'password',
+    ]);
+
+    $response = $this->delete(route('user.delete'));
+
+    expect(User::all())->toBeEmpty();
+    $response->assertRedirect('/');
+});
