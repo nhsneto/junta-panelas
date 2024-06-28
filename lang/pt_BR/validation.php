@@ -3,6 +3,7 @@
 return [
     'required' => 'Campo obrigatório.',
     'current_password' => 'Senha incorreta.',
+    'email' => 'Email inválido.',
 
     'custom' => [
         'name' => [
@@ -13,7 +14,6 @@ return [
         ],
 
         'email' => [
-            'email' => 'Email inválido.',
             'max' => [
                 'string' => 'Seu email é muito longo. Utilize no máximo :max caracteres.'
             ],
@@ -67,12 +67,7 @@ return [
             ],
         ],
 
-        'current_email' => [
-            'email' => 'Email inválido.',
-        ],
-
         'new_email' => [
-            'email' => 'Email inválido.',
             'confirmed' => 'Os emails não conferem.',
             'unique' => 'Esse email já existe.',
         ],
