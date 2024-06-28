@@ -23,126 +23,54 @@ test('login page can be rendered', function () {
 });
 
 test('junta-panelas index page can be rendered', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->get(route('junta-panelas.index'));
+    $response = $this->actingAs($user)->get(route('junta-panelas.index'));
 
     $response->assertStatus(200);
 });
 
 test('junta-panelas create page can be rendered', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->get(route('junta-panelas.create'));
+    $response = $this->actingAs($user)->get(route('junta-panelas.create'));
 
     $response->assertStatus(200);
 });
 
 test('junta-panelas edit page can be rendered', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '08:30',
-    ]);
-
-    $response = $this->get(route('junta-panelas.edit', [
-        'juntaPanelas' => JuntaPanelas::first()
+    $response = $this->actingAs($juntaPanelas->user)->get(route('junta-panelas.edit', [
+        'juntaPanelas' => $juntaPanelas,
     ]));
 
     $response->assertStatus(200);
 });
 
 test('junta-panelas profile page can be rendered', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->get(route('profile'));
+    $response = $this->actingAs($user)->get(route('profile'));
 
     $response->assertStatus(200);
 });
 
 test('junta-panelas participants page can be rendered', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '07:00',
-    ]);
-
-    $response = $this->get(route('participant.index', [
-        'juntaPanelas' => JuntaPanelas::first()
+    $response = $this->actingAs($juntaPanelas->user)->get(route('participant.index', [
+        'juntaPanelas' => $juntaPanelas,
     ]));
 
     $response->assertStatus(200);
 });
 
 test('junta-panelas show page can be rendered', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $juntaPanelas = JuntaPanelas::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
-        'title' => 'Test title',
-        'date' => now()->addDay()->format('Y-m-d'),
-        'time' => '12:40',
-    ]);
-
-    $response = $this->get(route('junta-panelas.show', [
-        'juntaPanelas' => JuntaPanelas::first(),
+    $response = $this->actingAs($juntaPanelas->user)->get(route('junta-panelas.show', [
+        'juntaPanelas' => $juntaPanelas,
     ]));
 
     $response->assertStatus(200);

@@ -4,22 +4,15 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 test('should change the user\'s email', function () {
-    User::create([
-        'name' => 'Test User',
+    $user = User::factory()->create([
         'email' => 'test@example.com',
-        'password' => Hash::make('password'),
     ]);
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $former_updated_at = User::first()->updated_at;
+    $former_updated_at = $user->updated_at;
     $newEmail = 'new@example.com';
 
-    $response = $this->put(route('email.update'), [
-        'current_email' => 'test@example.com',
+    $response = $this->actingAs($user)->put(route('email.update'), [
+        'current_email' => $user->email,
         'new_email' => $newEmail,
         'new_email_confirmation' => $newEmail,
     ]);
@@ -33,18 +26,9 @@ test('should change the user\'s email', function () {
 });
 
 test('should fail when trying to change the user\'s email with no current email', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('email.update'), [
+    $response = $this->actingAs($user)->put(route('email.update'), [
         'current_email' => null,
         'new_email' => 'new@example.com',
         'new_email_confirmation' => 'new@example.com',
@@ -54,18 +38,9 @@ test('should fail when trying to change the user\'s email with no current email'
 });
 
 test('should fail when trying to change the user\'s email with an invalid current email format', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('email.update'), [
+    $response = $this->actingAs($user)->put(route('email.update'), [
         'current_email' => 'test',
         'new_email' => 'new@example.com',
         'new_email_confirmation' => 'new@example.com',
@@ -75,18 +50,9 @@ test('should fail when trying to change the user\'s email with an invalid curren
 });
 
 test('should fail when trying to change the user\'s email with the wrong current email', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('email.update'), [
+    $response = $this->actingAs($user)->put(route('email.update'), [
         'current_email' => 'wrong@example.com',
         'new_email' => 'new@example.com',
         'new_email_confirmation' => 'new@example.com',
@@ -96,18 +62,9 @@ test('should fail when trying to change the user\'s email with the wrong current
 });
 
 test('should fail when trying to change the user\'s email without the new email', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('email.update'), [
+    $response = $this->actingAs($user)->put(route('email.update'), [
         'current_email' => 'test@example.com',
         'new_email' => null,
         'new_email_confirmation' => 'new@example.com',
@@ -117,18 +74,9 @@ test('should fail when trying to change the user\'s email without the new email'
 });
 
 test('should fail when trying to change the user\'s email with a new email that is longer than 255 characters', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('email.update'), [
+    $response = $this->actingAs($user)->put(route('email.update'), [
         'current_email' => 'test@example.com',
         'new_email' => 'test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test@example.com',
         'new_email_confirmation' => 'test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test_test@example.com',
@@ -138,18 +86,9 @@ test('should fail when trying to change the user\'s email with a new email that 
 });
 
 test('should fail when trying to change the user\'s email with an invalid new email format', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('email.update'), [
+    $response = $this->actingAs($user)->put(route('email.update'), [
         'current_email' => 'test@example.com',
         'new_email' => 'test',
         'new_email_confirmation' => 'new@example.com',
@@ -159,18 +98,9 @@ test('should fail when trying to change the user\'s email with an invalid new em
 });
 
 test('should fail when trying to change the user\'s email with no new email confirmation', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('email.update'), [
+    $response = $this->actingAs($user)->put(route('email.update'), [
         'current_email' => 'test@example.com',
         'new_email' => 'test',
         'new_email_confirmation' => null,
@@ -180,18 +110,9 @@ test('should fail when trying to change the user\'s email with no new email conf
 });
 
 test('should fail when trying to change the user\'s email with a different email confirmation', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('email.update'), [
+    $response = $this->actingAs($user)->put(route('email.update'), [
         'current_email' => 'test@example.com',
         'new_email' => 'new@example.com',
         'new_email_confirmation' => 'wrong@example.com',
@@ -201,25 +122,16 @@ test('should fail when trying to change the user\'s email with a different email
 });
 
 test('should fail when trying to change the user\'s email with a new email that already exists', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
+    User::factory()->create([
+        'email' => 'test@example.com'
     ]);
 
-    User::create([
-        'name' => 'User',
+    $user = User::factory()->create([
         'email' => 'user@example.com',
-        'password' => Hash::make('user1234'),
     ]);
 
-    $this->post(route('login'), [
-        'email' => 'user@example.com',
-        'password' => 'user1234',
-    ]);
-
-    $response = $this->put(route('email.update'), [
-        'current_email' => 'user@example.com',
+    $response = $this->actingAs($user)->put(route('email.update'), [
+        'current_email' => $user->email,
         'new_email' => 'test@example.com', // Email already exists
         'new_email_confirmation' => 'test@example.com',
     ]);
@@ -228,21 +140,12 @@ test('should fail when trying to change the user\'s email with a new email that 
 });
 
 test('should change the user\'s password', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $former_updated_at = User::first()->updated_at;
+    $former_updated_at = $user->updated_at;
     $newPassword = 'newpassword';
 
-    $response = $this->put(route('password.update'), [
+    $response = $this->actingAs($user)->put(route('password.update'), [
         'current_password' => 'password',
         'new_password' => $newPassword,
         'new_password_confirmation' => $newPassword,
@@ -257,18 +160,9 @@ test('should change the user\'s password', function () {
 });
 
 test('should fail when trying to change the user\'s password with no current password', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('password.update'), [
+    $response = $this->actingAs($user)->put(route('password.update'), [
         'current_password' => null,
         'new_password' => 'newpassword',
         'new_password_confirmation' => 'newpassword',
@@ -278,18 +172,9 @@ test('should fail when trying to change the user\'s password with no current pas
 });
 
 test('should fail when trying to change the user\'s password with wrong current password', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('password.update'), [
+    $response = $this->actingAs($user)->put(route('password.update'), [
         'current_password' => 'wrongpassword',
         'new_password' => 'newpassword',
         'new_password_confirmation' => 'newpassword',
@@ -299,18 +184,9 @@ test('should fail when trying to change the user\'s password with wrong current 
 });
 
 test('should fail when trying to change the user\'s password with no new password', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('password.update'), [
+    $response = $this->actingAs($user)->put(route('password.update'), [
         'current_password' => 'password',
         'new_password' => null,
         'new_password_confirmation' => 'newpassword',
@@ -320,18 +196,9 @@ test('should fail when trying to change the user\'s password with no new passwor
 });
 
 test('should fail when trying to change the user\'s password with the new password having less than 6 characters', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('password.update'), [
+    $response = $this->actingAs($user)->put(route('password.update'), [
         'current_password' => 'password',
         'new_password' => '12345',
         'new_password_confirmation' => '12345',
@@ -341,18 +208,9 @@ test('should fail when trying to change the user\'s password with the new passwo
 });
 
 test('should fail when trying to change the user\'s password without password confirmation', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('password.update'), [
+    $response = $this->actingAs($user)->put(route('password.update'), [
         'current_password' => 'password',
         'new_password' => 'newpassword',
         'new_password_confirmation' => null,
@@ -362,18 +220,9 @@ test('should fail when trying to change the user\'s password without password co
 });
 
 test('should fail when trying to change the user\'s password with wrong password confirmation', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->put(route('password.update'), [
+    $response = $this->actingAs($user)->put(route('password.update'), [
         'current_password' => 'password',
         'new_password' => 'newpassword',
         'new_password_confirmation' => 'wrongpassword',
@@ -383,18 +232,9 @@ test('should fail when trying to change the user\'s password with wrong password
 });
 
 test('should delete the user', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->delete(route('user.delete'));
+    $response = $this->actingAs($user)->delete(route('user.delete'));
 
     expect(User::all())->toBeEmpty();
     $response->assertRedirect('/');

@@ -3,6 +3,7 @@
 return [
     'required' => 'Campo obrigatório.',
     'current_password' => 'Senha incorreta.',
+    'email' => 'Email inválido.',
 
     'custom' => [
         'name' => [
@@ -13,9 +14,8 @@ return [
         ],
 
         'email' => [
-            'email' => 'Email inválido.',
             'max' => [
-                'string' => 'Seu email é muito longo.'
+                'string' => 'Seu email é muito longo. Utilize no máximo :max caracteres.'
             ],
             'unique' => 'Esse email já existe.'
         ],
@@ -29,7 +29,7 @@ return [
 
         'title' => [
             'max' => [
-                'string' => 'O título deve conter no máximo 255 caracteres.',
+                'string' => 'O título deve conter no máximo :max caracteres.',
             ],
         ],
 
@@ -43,36 +43,31 @@ return [
 
         'item_1' => [
             'max' => [
-                'string' => 'O item deve conter no máximo 100 caracteres.'
+                'string' => 'O item deve conter no máximo :max caracteres.'
             ],
         ],
         'item_2' => [
             'max' => [
-                'string' => 'O item deve conter no máximo 100 caracteres.'
+                'string' => 'O item deve conter no máximo :max caracteres.'
             ],
         ],
         'item_3' => [
             'max' => [
-                'string' => 'O item deve conter no máximo 100 caracteres.'
+                'string' => 'O item deve conter no máximo :max caracteres.'
             ],
         ],
         'item_4' => [
             'max' => [
-                'string' => 'O item deve conter no máximo 100 caracteres.'
+                'string' => 'O item deve conter no máximo :max caracteres.'
             ],
         ],
         'item_5' => [
             'max' => [
-                'string' => 'O item deve conter no máximo 100 caracteres.'
+                'string' => 'O item deve conter no máximo :max caracteres.'
             ],
         ],
 
-        'current_email' => [
-            'email' => 'Email inválido.',
-        ],
-
         'new_email' => [
-            'email' => 'Email inválido.',
             'confirmed' => 'Os emails não conferem.',
             'unique' => 'Esse email já existe.',
         ],
