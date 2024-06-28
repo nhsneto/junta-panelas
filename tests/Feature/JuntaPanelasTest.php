@@ -2,25 +2,14 @@
 
 use App\Models\JuntaPanelas;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 test('should create a junta-panelas planning', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
-
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
+    $user = User::factory()->create();
     $title = 'John doe party';
     $date = now()->addDay()->format('Y-m-d');
     $time = '14:10';
 
-    $response = $this->post(route('junta-panelas.store'), [
+    $response = $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => $title,
         'date' => $date,
         'time' => $time,
@@ -33,23 +22,13 @@ test('should create a junta-panelas planning', function () {
     expect($jp->id)->toBeTruthy()
         ->and($jp->title)->toBe($title)
         ->and($jp->date)->toBe($iso8601Date);
-
     $response->assertRedirectToRoute('junta-panelas.index');
 });
 
 test('should fail when trying to create a junta-panelas planning without title', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->post(route('junta-panelas.store'), [
+    $response = $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => null,
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '05:30',
@@ -59,18 +38,9 @@ test('should fail when trying to create a junta-panelas planning without title',
 });
 
 test('should fail when trying to create a junta-panelas planning whose title has more than 255 characters', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->post(route('junta-panelas.store'), [
+    $response = $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test T',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '14:10',
@@ -80,18 +50,9 @@ test('should fail when trying to create a junta-panelas planning whose title has
 });
 
 test('should fail when trying to create a junta-panelas planning with no date', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->post(route('junta-panelas.store'), [
+    $response = $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Christmas Party',
         'date' => null,
         'time' => '14:10',
@@ -101,18 +62,9 @@ test('should fail when trying to create a junta-panelas planning with no date', 
 });
 
 test('should fail when trying to create a junta-panelas planning with a date that is not after or equal tomorrow', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->post(route('junta-panelas.store'), [
+    $response = $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Christmas Party',
         'date' => now()->format('Y-m-d'),
         'time' => '14:10',
@@ -122,18 +74,9 @@ test('should fail when trying to create a junta-panelas planning with a date tha
 });
 
 test('should fail when trying to create a junta-panelas planning without time', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->post(route('junta-panelas.store'), [
+    $response = $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Christmas Party',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => null,
@@ -143,18 +86,9 @@ test('should fail when trying to create a junta-panelas planning without time', 
 });
 
 test('should fail when trying to create a junta-panelas planning with time in wrong format', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $response = $this->post(route('junta-panelas.store'), [
+    $response = $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Christmas Party',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '14:10:58',  // Only accepts hour:minute format
@@ -164,18 +98,9 @@ test('should fail when trying to create a junta-panelas planning with time in wr
 });
 
 test('should update a junta-panelas planning', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
+    $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Test title',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '09:45',
@@ -206,22 +131,13 @@ test('should update a junta-panelas planning', function () {
 });
 
 test('should do nothing when trying to update a junta-panelas planning with no new data', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
-
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
+    $user = User::factory()->create();
 
     $title = 'Test title';
     $date = now()->addDay()->format('Y-m-d');
     $time = '08:20';
 
-    $this->post(route('junta-panelas.store'), [
+    $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => $title,
         'date' => $date,
         'time' => $time,
@@ -249,18 +165,9 @@ test('should do nothing when trying to update a junta-panelas planning with no n
 });
 
 test('should fail when trying to update a junta-panelas planning without title', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
+    $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Test title',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
@@ -278,18 +185,9 @@ test('should fail when trying to update a junta-panelas planning without title',
 });
 
 test('should fail when trying to update a junta-panelas planning whose title has more than 255 characters', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
+    $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Test title',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
@@ -307,18 +205,9 @@ test('should fail when trying to update a junta-panelas planning whose title has
 });
 
 test('should fail when trying to update a junta-panelas planning with no date', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
+    $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Test title',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
@@ -336,18 +225,9 @@ test('should fail when trying to update a junta-panelas planning with no date', 
 });
 
 test('should fail when trying to update a junta-panelas planning with a date that is not after or equal tomorrow', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
+    $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Test title',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
@@ -365,18 +245,9 @@ test('should fail when trying to update a junta-panelas planning with a date tha
 });
 
 test('should fail when trying to update a junta-panelas planning without time', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
+    $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Test title',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
@@ -394,18 +265,9 @@ test('should fail when trying to update a junta-panelas planning without time', 
 });
 
 test('should fail when trying to update a junta-panelas planning with time in wrong format', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
+    $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Test title',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '08:20',
@@ -423,18 +285,9 @@ test('should fail when trying to update a junta-panelas planning with time in wr
 });
 
 test('should delete junta-panelas planning', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
+    $user = User::factory()->create();
 
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
-
-    $this->post(route('junta-panelas.store'), [
+    $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => 'Test title',
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '22:50',
@@ -453,20 +306,11 @@ test('should delete junta-panelas planning', function () {
 });
 
 test('should generate and download a junta-panelas pdf', function () {
-    User::create([
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
-    ]);
-
-    $this->post(route('login'), [
-        'email' => 'test@example.com',
-        'password' => 'password',
-    ]);
+    $user = User::factory()->create();
 
     $name = 'Test title';
 
-    $this->post(route('junta-panelas.store'), [
+    $this->actingAs($user)->post(route('junta-panelas.store'), [
         'title' => $name,
         'date' => now()->addDay()->format('Y-m-d'),
         'time' => '11:30',

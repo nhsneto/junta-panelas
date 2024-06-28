@@ -88,10 +88,8 @@ test('should fail when trying to register user with an email that is longer than
 });
 
 test('should fail when trying to register user with a duplicate email', function () {
-    User::create([
-        'name' => 'Test User',
+    User::factory()->create([
         'email' => 'test@example.com',
-        'password' => 'password',
     ]);
 
     $response = $this->post(route('register'), [
