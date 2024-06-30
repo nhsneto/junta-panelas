@@ -13,7 +13,7 @@
         <div class="max-w-screen-xl h-full m-auto flex flex-col px-5">
             <nav class="flex justify-between items-center py-10 font-semibold">
                 <a href="{{ url('/') }}" class="font-['Style_Script'] text-5xl">Junta-Panelas</a>
-                <div class="space-x-6">
+                <div class="flex items-center space-x-6">
                     @guest
                         <x-primary-link href="{{ route('login') }}">{{ __('Log In') }}</x-primary-link>
                         <x-primary-link href="{{ route('register') }}">{{ __('Register') }}</x-primary-link>
@@ -21,11 +21,21 @@
 
                     @auth
                         <x-primary-link href="{{ route('junta-panelas.index') }}">{{ __('My Junta-Panelas') }}</x-primary-link>
-                        <form method="POST" action="{{ route('logout') }}" class="inline">
-                            @method('DELETE')
-                            @csrf
-                            <button>{{ __('Log Out') }}</button>
-                        </form>
+
+                        <div class="relative">
+                            <button id="dropdownTrigger">
+                                <x-icons.user-circle class="size-9" />
+                            </button>
+
+                            <div id="dropdown" class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-[#fbfbfb] py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <a href="{{ route('profile') }}" class="menuItem block px-4 py-2 text-sm text-black/65 hover:bg-black/5" id="user-menu-item-0">{{ __('Profile') }}</a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="w-full px-4 py-2 text-left text-sm text-black/65 hover:bg-black/5">{{ __('Log Out') }}</button>
+                                </form>
+                            </div>
+                        </div>
                     @endauth
                 </div>
             </nav>
@@ -36,5 +46,23 @@
                 <p>&copy; nhsneto</p>
             </footer>
         </div>
+
+        <script>
+            window.onload = function () {
+                const trigger = document.getElementById('dropdownTrigger');
+                const dropdown = document.getElementById('dropdown');
+                let show = false;
+
+                trigger.addEventListener('click', () => {
+                    show = !show;
+
+                    if (show) {
+                        dropdown.style.display = "block";
+                    } else {
+                        dropdown.style.display = "none";
+                    }
+                });
+            }
+        </script>
     </body>
 </html>
