@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ strtolower(str_replace('_', '-', app()->getLocale())) }}" class="h-full bg-[#fff5ea]">
+<html lang="{{ strtolower(str_replace('_', '-', app()->getLocale())) }}" class="h-full bg-[#fff5ea]" data-theme="light">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,17 +22,16 @@
                     @auth
                         <x-primary-link href="{{ route('junta-panelas.index') }}">{{ __('My Junta-Panelas') }}</x-primary-link>
 
-                        <div class="relative">
+                        <div class="flex dropdown dropdown-bottom dropdown-end">
                             <button id="dropdownTrigger">
                                 <x-icons.user-circle class="size-9" />
                             </button>
-
-                            <div id="dropdown" class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-[#fbfbfb] py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                <a href="{{ route('profile') }}" class="menuItem block px-4 py-2 text-sm text-black/65 hover:bg-black/5" id="user-menu-item-0">{{ __('Profile') }}</a>
+                            <div tabindex="0" id="dropdownMenu" class="w-48 px-0 py-1.5 dropdown-content menu bg-[#fbfbfb] rounded z-[1] shadow">
+                                <a href="{{ route('profile') }}" class="px-4 py-2 hover:bg-black/5">{{ __('Profile') }}</a>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @method('DELETE')
                                     @csrf
-                                    <button class="w-full px-4 py-2 text-left text-sm text-black/65 hover:bg-black/5">{{ __('Log Out') }}</button>
+                                    <button class="w-full text-left px-4 py-2 hover:bg-black/5">{{ __('Log Out') }}</button>
                                 </form>
                             </div>
                         </div>
@@ -46,23 +45,5 @@
                 <p>&copy; nhsneto</p>
             </footer>
         </div>
-
-        <script>
-            window.onload = function () {
-                const trigger = document.getElementById('dropdownTrigger');
-                const dropdown = document.getElementById('dropdown');
-                let show = false;
-
-                trigger.addEventListener('click', () => {
-                    show = !show;
-
-                    if (show) {
-                        dropdown.style.display = "block";
-                    } else {
-                        dropdown.style.display = "none";
-                    }
-                });
-            }
-        </script>
     </body>
 </html>
