@@ -10,7 +10,7 @@
             <ul class="space-y-4">
                 @foreach($juntaPanelas->participants->sortBy('name') as $participant)
                     <li>
-                        <x-junta-panelas.participant-card :participant="$participant" :juntaPanelas="$juntaPanelas" />
+                        <x-junta-panelas.participant-card :$participant :$juntaPanelas />
                     </li>
                 @endforeach
             </ul>
