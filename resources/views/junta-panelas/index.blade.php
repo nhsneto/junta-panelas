@@ -107,9 +107,9 @@
             })
 
             function showErrors(errors) {
-                titleErrors = addErrors(errors.title);
-                dateErrors = addErrors(errors.date);
-                timeErrors = addErrors(errors.time);
+                const titleErrors = addErrors(errors.title);
+                const dateErrors = addErrors(errors.date);
+                const timeErrors = addErrors(errors.time);
 
                 if (titleErrors) $("#titleErrors").html(titleErrors).removeClass("hidden");
                 if (dateErrors) $("#dateErrors").html(dateErrors).removeClass("hidden");
@@ -117,12 +117,12 @@
             }
 
             function addErrors(fieldErrors) {
-                errors = "";
+                let errors = "";
 
-                for (const error in fieldErrors) {
+                for (const error of fieldErrors) {
                     errors += `<li>${error}</li>`;
                 }
-                return fieldErrors;
+                return errors;
             }
 
             function removeErrors() {
