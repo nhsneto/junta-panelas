@@ -6,8 +6,10 @@
 
         <div class="mt-5 overflow-x-auto rounded-md bg-[#fbfbfb] px-8 py-5 shadow">
             <table class="table table-lg table-pin-cols table-fixed">
+                @php $length = count($juntaPanelasList); @endphp
+
                 @foreach($juntaPanelasList as $juntaPanelas)
-                    <tr class="group hover:bg-black/5 @if(count($juntaPanelasList) === 1) border-b-0 @endif">
+                    <tr class="group hover:bg-black/5 @if($length === 1) border-b-0 @elseif($length > 1) border-b-black/15 @endif">
                         <td class="py-10">
                             <x-primary-link href="{{ route('junta-panelas.show', ['juntaPanelas' => $juntaPanelas]) }}" class="text-lg font-bold">{{ $juntaPanelas->title }}</x-primary-link>
                         </td>
