@@ -19,13 +19,13 @@
                         <td>
                             <div class="hidden items-center gap-x-3 group-hover:flex">
                                 <a href="{{ route('participant.index', ['juntaPanelas' => $juntaPanelas]) }}" title="{{ __('Participants') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
-                                    <x-icons.people />
+                                    <x-icons.people class="size-5" />
                                 </a>
                                 <button title="{{ __('Edit') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
-                                    <x-icons.pencil />
+                                    <x-icons.pencil class="size-5" />
                                 </button>
                                 <button title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
-                                    <x-icons.trash />
+                                    <x-icons.trash class="size-5" />
                                 </button>
                             </div>
                         </td>
@@ -41,17 +41,17 @@
                 <form class="mt-10 flex flex-col gap-y-6">
                     <div>
                         <x-form-field label="{{ __('Event Title') }}" name="title" placeholder="{{ __('Christmas Party') }}" :value="old('title')"/>
-                        <ul id="titleErrors" class="mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul id="titleErrors" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
                     </div>
 
                     <div>
-                        <x-form-field label="{{ __('Date') }}" type="date" name="date" :value="old('date')"/>
-                        <ul id="dateErrors" class="mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <x-form-field label="{{ __('Date') }}" type="date" name="date" :min="now()->addDay()->format('Y-m-d')" :value="old('date')"/>
+                        <ul id="dateErrors" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
                     </div>
 
                     <div>
                         <x-form-field label="{{ __('Time') }}" type="time" name="time" :value="old('time')"/>
-                        <ul id="timeErrors" class="mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul id="timeErrors" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
                     </div>
                 </form>
 
