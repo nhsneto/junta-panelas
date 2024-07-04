@@ -26,7 +26,7 @@
                                 <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Edit') }}" class="openUpdateModal px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
                                     <x-icons.pencil class="size-5" />
                                 </button>
-                                <button title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                                <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
                                     <x-icons.trash class="size-5" />
                                 </button>
                             </div>
@@ -93,9 +93,21 @@
         </div>
     </dialog>
 
+    <dialog id="deleteModal" class="modal bg-black/40">
+        <div class="modal-box px-10 bg-[#fbfbfb]">
+            <h1 class="text-2xl font-bold">{{ __('Delete Planning') }}</h1>
+            <p class="mt-5 font-semibold">{{ __('Are you sure you want to delete this planning?') }}</p>
+            <div class="mt-10 modal-action space-x-5">
+                <button id="closeDeleteModal"  class="btn border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Cancel') }}</button>
+                <button id="deleteButton" class="btn btn-outline px-5 hover:bg-[#ef4c53] hover:text-white">{{ __('Delete') }}</button>
+            </div>
+        </div>
+    </dialog>
+
     <script>
         const createModal = document.getElementById("createModal");
         const updateModal = document.getElementById("updateModal");
+        const deleteModal = document.getElementById("deleteModal");
 
         $("#openCreateModal").on("click", () => {
             createModal.show();
@@ -103,10 +115,6 @@
 
         $("#closeCreateModal").on("click", () => {
             createModal.close();
-        });
-
-        $("#closeUpdateModal").on("click", () => {
-            updateModal.close();
         });
 
         async function openUpdateModal(id) {
@@ -120,6 +128,19 @@
             updateModal.setAttribute("data-id", id);
             updateModal.show();
         }
+
+        $("#closeUpdateModal").on("click", () => {
+            updateModal.close();
+        });
+
+        function openDeleteModal(id) {
+            deleteModal.setAttribute("data-id", id);
+            deleteModal.show();
+        }
+
+        $("#closeDeleteModal").on("click", () => {
+            deleteModal.close();
+        });
 
         $("#createButton").on("click", () => {
             removeErrors("create");
@@ -168,6 +189,27 @@
                         showErrors(err.responseJSON.errors, "update");
                     } else if (err.status === 405) { // To prevent the 'method not allowed' error. Probably a bug when accessing the put route
                         updateModal.close();
+                        location.reload();
+                    } else {
+                        console.error(err);
+                    }
+                }
+            });
+        });
+
+        $("#deleteButton").on("click", () => {
+            const id = deleteModal.getAttribute("data-id");
+
+            $.ajax({
+                url: "http://localhost:8000/junta-panelas/" + id,
+                method: "delete",
+                success: function () {
+                    deleteModal.close();
+                    location.reload();
+                },
+                error: function (err) {
+                    if (err.status === 405) {
+                        deleteModal.close();
                         location.reload();
                     } else {
                         console.error(err);
