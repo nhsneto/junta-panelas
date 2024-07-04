@@ -47,5 +47,15 @@
                 <p>&copy; nhsneto</p>
             </footer>
         </div>
+
+        <script>
+            window.onload = function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            }
+        </script>
     </body>
 </html>
