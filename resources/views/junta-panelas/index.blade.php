@@ -110,23 +110,15 @@
         });
 
         async function openUpdateModal(id) {
-            const {title, date} = await getJuntaPanelas(id);
+            removeErrors("update");
 
+            const {title, date} = await $.get(`http://localhost:8000/junta-panelas/${id}`, (data) => data);
             $("#update_title").val(title);
             $("#update_date").val(dayjs(date).format("YYYY-MM-DD"));
             $("#update_time").val(dayjs(date).format("HH:mm"));
 
             updateModal.setAttribute("data-id", id);
             updateModal.show();
-        }
-
-        async function getJuntaPanelas(id) {
-            let juntaPanelas;
-
-            await $.get(`http://localhost:8000/junta-panelas/${id}`, (data) => {
-                juntaPanelas = data;
-            });
-            return juntaPanelas;
         }
 
         $("#createButton").on("click", () => {
