@@ -1,11 +1,11 @@
 <x-layout>
     <div class="mt-6 w-2/3 flex flex-col">
-        <div id="stickyMenu" class="w-full mt-10 py-6 pl-8 sticky top-0 z-10 rounded-md bg-[#fbfbfb] drop-shadow">
+        <div class="w-full mt-10 py-6 pl-8 sticky top-0 z-10 rounded-md bg-[#fbfbfb] drop-shadow">
             <button id="openCreateModal" class="btn px-8 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Plan') }}</button>
         </div>
 
         <div class="mt-5 overflow-x-auto rounded-md bg-[#fbfbfb] px-8 py-5 shadow">
-            <table class="table table-lg table-pin-cols table-fixed">
+            <table class="table table-lg table-fixed">
                 @php $length = count($juntaPanelasList); @endphp
 
                 @foreach($juntaPanelasList as $juntaPanelas)
