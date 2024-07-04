@@ -26,6 +26,10 @@ Route::middleware('auth')->group(function () {
     Route::get('junta-panelas', [JuntaPanelasController::class, 'index'])
         ->name('junta-panelas.index');
 
+    Route::get('junta-panelas/{juntaPanelas}', function (\App\Models\JuntaPanelas $juntaPanelas) {
+        return response()->json($juntaPanelas);
+    });
+
     Route::get('junta-panelas/{juntaPanelas}/show', [JuntaPanelasController::class, 'show'])
         ->name('junta-panelas.show');
 
