@@ -23,7 +23,7 @@
                                 <a href="{{ route('participant.index', ['juntaPanelas' => $juntaPanelas]) }}" title="{{ __('Participants') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
                                     <x-icons.people class="size-5" />
                                 </a>
-                                <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Edit') }}" class="openUpdateModal px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                                <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Edit') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
                                     <x-icons.pencil class="size-5" />
                                 </button>
                                 <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
