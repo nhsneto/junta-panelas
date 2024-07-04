@@ -35,35 +35,35 @@
                 @endforeach
             </table>
         </div>
-
-        <dialog id="createModal" class="modal bg-black/40">
-            <div class="modal-box px-10 bg-[#fbfbfb]">
-                <h1 class="text-2xl text-center font-bold">{{ __('Planning') }}</h1>
-
-                <form class="mt-10 flex flex-col gap-y-6">
-                    <div>
-                        <x-form-field label="{{ __('Event Title') }}" name="title" placeholder="{{ __('Christmas Party') }}"/>
-                        <ul data-title-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
-                    </div>
-
-                    <div>
-                        <x-form-field label="{{ __('Date') }}" type="date" name="date" :min="now()->addDay()->format('Y-m-d')"/>
-                        <ul data-date-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
-                    </div>
-
-                    <div>
-                        <x-form-field label="{{ __('Time') }}" type="time" name="time"/>
-                        <ul data-time-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
-                    </div>
-                </form>
-
-                <div class="mt-10 modal-action space-x-5">
-                    <button id="closeCreateModal"  class="btn border-transparent rounded-md font-semibold hover:border-[#f0997d] shadow-none">{{ __('Cancel') }}</button>
-                    <button id="createButton" class="btn px-5 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Plan') }}</button>
-                </div>
-            </div>
-        </dialog>
     </div>
+
+    <dialog id="createModal" class="modal bg-black/40">
+        <div class="modal-box px-10 bg-[#fbfbfb]">
+            <h1 class="text-2xl text-center font-bold">{{ __('Planning') }}</h1>
+
+            <form class="mt-10 flex flex-col gap-y-6">
+                <div>
+                    <x-form-field label="{{ __('Event Title') }}" name="title" placeholder="{{ __('Christmas Party') }}"/>
+                    <ul data-title-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                </div>
+
+                <div>
+                    <x-form-field label="{{ __('Date') }}" type="date" name="date" :min="now()->addDay()->format('Y-m-d')"/>
+                    <ul data-date-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                </div>
+
+                <div>
+                    <x-form-field label="{{ __('Time') }}" type="time" name="time"/>
+                    <ul data-time-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                </div>
+            </form>
+
+            <div class="mt-10 modal-action space-x-5">
+                <button id="closeCreateModal"  class="btn border-transparent rounded-md font-semibold hover:border-[#f0997d] shadow-none">{{ __('Cancel') }}</button>
+                <button id="createButton" class="btn px-5 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Plan') }}</button>
+            </div>
+        </div>
+    </dialog>
 
     <dialog id="updateModal" class="modal bg-black/40">
         <div class="modal-box px-10 bg-[#fbfbfb]">
