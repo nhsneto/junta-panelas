@@ -43,9 +43,9 @@
     </div>
 
     <dialog id="createModal" class="modal bg-black/40">
-        <div class="modal-box px-10 bg-[#fbfbfb]">
+        <div class="modal-box px-12 bg-[#fbfbfb]">
 
-            <form class="mt-10 flex flex-col gap-y-6">
+            <form class="flex flex-col gap-y-6">
                 <div>
                     <x-form-field label="{{ __('Name') }}" name="name" id="name" placeholder="{{ __('John') }}" :value="old('name')" required/>
                     <ul data-name-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
