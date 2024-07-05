@@ -81,7 +81,7 @@
             </form>
 
             <div class="mt-10 modal-action space-x-5">
-                <button id="closeCreateModal"  class="btn border-transparent rounded-md font-semibold hover:border-[#f0997d] shadow-none">{{ __('Cancel') }}</button>
+                <button id="closeCreateModal" class="btn border-transparent rounded-md font-semibold hover:border-[#f0997d] shadow-none">{{ __('Cancel') }}</button>
                 <button onclick="createParticipant({{ json_encode($juntaPanelas->id) }})" class="btn px-5 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Add') }}</button>
             </div>
         </div>
@@ -98,11 +98,11 @@
             createModal.close();
         });
 
-        function createParticipant(id) {
+        function createParticipant(juntaPanelasId) {
             removeErrors("create");
 
             $.post({
-                url: `http://localhost:8000/junta-panelas/${id}/participants`,
+                url: `http://localhost:8000/junta-panelas/${juntaPanelasId}/participants`,
                 type: "post",
                 data: {
                     name: $("#name").val(),
