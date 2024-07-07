@@ -50,5 +50,6 @@
     "The email is incorrect.": "Email incorreto.",
     "Delete Planning": "Excluir Planejamento",
     "Are you sure you want to delete this planning?" : "Tem certeza que deseja excluir este planejamento?",
-    "Are you sure you want to delete this participant?": "Tem certeza que deseja excluir este participante?"
+    "Are you sure you want to delete this participant?": "Tem certeza que deseja excluir este participante?",
+    "Incorrect password.": "Senha incorreta."
 }

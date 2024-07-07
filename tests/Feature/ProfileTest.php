@@ -234,8 +234,22 @@ test('should fail when trying to change the user\'s password with wrong password
 test('should delete the user', function () {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->delete(route('user.delete'));
+    $response = $this->actingAs($user)->delete(route('user.delete'), [
+        'password' => 'password',
+    ]);
 
     expect(User::all())->toBeEmpty();
     $response->assertRedirect('/');
+});
+
+test('should fail when deleting user with wrong password', function () {
+    $user = User::factory()->create([
+        'password' => 'password',
+    ]);
+
+    $response = $this->actingAs($user)->delete(route('user.delete'), [
+        'password' => 'wrongpassword',
+    ]);
+
+    $response->assertInvalid('password');
 });
