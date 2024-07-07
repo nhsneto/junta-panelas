@@ -219,21 +219,9 @@
         });
 
         function showErrors(errors, action) {
-            if (errors.title) {
-                $(`[data-title-errors=${action}]`)
-                    .html(addErrors(errors.title))
-                    .removeClass("hidden");
-            }
-
-            if (errors.date) {
-                $(`[data-date-errors=${action}]`)
-                    .html(addErrors(errors.date))
-                    .removeClass("hidden");
-            }
-
-            if (errors.time) {
-                $(`[data-time-errors=${action}]`)
-                    .html(addErrors(errors.time))
+            for (const field in errors) {
+                $(`[data-${field}-errors=${action}]`)
+                    .html(addErrors(errors[field]))
                     .removeClass("hidden");
             }
         }
