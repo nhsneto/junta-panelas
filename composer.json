@@ -9,7 +9,9 @@
         "barryvdh/laravel-dompdf": "^2.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
-        "mongodb/laravel-mongodb": "^4.3"
+        "mongodb/laravel-mongodb": "^4.3",
+        "mongodb/mongodb": "^1.19",
+        "ext-mongodb": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

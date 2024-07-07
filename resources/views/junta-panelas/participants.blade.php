@@ -27,7 +27,7 @@
 
                             <td>
                                 <div class="hidden items-center gap-x-2 group-hover:flex">
-                                    <button title="{{ __('Edit') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                                    <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" title="{{ __('Edit') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
                                         <x-icons.pencil class="size-5" />
                                     </button>
                                     <button title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
@@ -87,6 +87,51 @@
         </div>
     </dialog>
 
+    <dialog id="updateModal" class="modal bg-black/40">
+        <div class="modal-box px-12 bg-[#fbfbfb]">
+
+            <form class="flex flex-col gap-y-6">
+                <div>
+                    <x-form-field label="{{ __('Name') }}" name="update_name" placeholder="{{ __('John') }}" :value="old('name')" required/>
+                    <ul data-name-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                </div>
+
+                <div class="flex flex-col gap-y-4">
+                    <p class="font-semibold">Item(s)</p>
+                    <div>
+                        <x-form-field name="update_item_1" placeholder="{{ __('Cake') }}" />
+                        <ul data-item_1-errors="update" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                    </div>
+
+                    <div>
+                        <x-form-field name="update_item_2" />
+                        <ul data-item_2-errors="update" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                    </div>
+
+                    <div>
+                        <x-form-field name="update_item_3" />
+                        <ul data-item_3-errors="update" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                    </div>
+
+                    <div>
+                        <x-form-field name="update_item_4" />
+                        <ul data-item_4-errors="update" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                    </div>
+
+                    <div>
+                        <x-form-field name="update_item_5" />
+                        <ul data-item_5-errors="update" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                    </div>
+                </div>
+            </form>
+
+            <div class="mt-10 modal-action space-x-5">
+                <button id="closeUpdateModal"  class="btn border-transparent rounded-md font-semibold hover:border-[#f0997d] shadow-none">{{ __('Cancel') }}</button>
+                <button onclick="updateParticipant()" class="btn px-5 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Update') }}</button>
+            </div>
+        </div>
+    </dialog>
+
     <script>
         const createModal = document.getElementById("createModal");
 
@@ -119,6 +164,59 @@
                 error: function (err) {
                     if (err.status === 422) {
                         showErrors(err.responseJSON.errors, "create");
+                    } else {
+                        console.error(err);
+                    }
+                }
+            });
+        }
+
+        const updateModal = document.getElementById("updateModal");
+
+        async function openUpdateModal(juntaPanelasId, participantId) {
+            removeErrors("update");
+
+            const {name, items} = await $.get(`http://localhost:8000/junta-panelas/${juntaPanelasId}/participants/${participantId}`, (data) => data);
+            $("#update_name").val(name);
+            $("#update_item_1").val(items[0]);
+            $("#update_item_2").val(items[1]);
+            $("#update_item_3").val(items[2]);
+            $("#update_item_4").val(items[3]);
+            $("#update_item_5").val(items[4]);
+
+            updateModal.setAttribute("data-junta-panelas-id", juntaPanelasId);
+            updateModal.setAttribute("data-participant-id", participantId);
+            updateModal.show();
+        }
+
+        $("#closeUpdateModal").on("click", () => {
+            updateModal.close();
+        });
+
+        function updateParticipant() {
+            removeErrors("update");
+
+            const juntaPanelasId = updateModal.getAttribute("data-junta-panelas-id");
+            const participantId = updateModal.getAttribute("data-participant-id");
+
+            $.post({
+                url: `http://localhost:8000/junta-panelas/${juntaPanelasId}/participants/${participantId}`,
+                type: "put",
+                data: {
+                    name: $("#update_name").val(),
+                    item_1: $("#update_item_1").val(),
+                    item_2: $("#update_item_2").val(),
+                    item_3: $("#update_item_3").val(),
+                    item_4: $("#update_item_4").val(),
+                    item_5: $("#update_item_5").val()
+                },
+                success: function () {
+                    createModal.close();
+                    location.reload();
+                },
+                error: function (err) {
+                    if (err.status === 422) {
+                        showErrors(err.responseJSON.errors, "update");
                     } else {
                         console.error(err);
                     }
