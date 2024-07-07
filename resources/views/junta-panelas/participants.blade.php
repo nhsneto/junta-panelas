@@ -30,7 +30,7 @@
                                     <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" title="{{ __('Edit') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
                                         <x-icons.pencil class="size-5" />
                                     </button>
-                                    <button title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                                    <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
                                         <x-icons.trash class="size-5" />
                                     </button>
                                 </div>
@@ -132,6 +132,17 @@
         </div>
     </dialog>
 
+    <dialog id="deleteModal" class="modal bg-black/40">
+        <div class="modal-box px-10 bg-[#fbfbfb]">
+            <h1 class="text-2xl font-bold">{{ __('Delete Participant') }}</h1>
+            <p class="mt-5 font-semibold">{{ __('Are you sure you want to delete this participant?') }}</p>
+            <div class="mt-10 modal-action space-x-5">
+                <button id="closeDeleteModal"  class="btn border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Cancel') }}</button>
+                <button onclick="deleteParticipant()" class="btn btn-outline px-5 hover:bg-[#ef4c53] hover:text-white">{{ __('Delete') }}</button>
+            </div>
+        </div>
+    </dialog>
+
     <script>
         const createModal = document.getElementById("createModal");
 
@@ -217,6 +228,40 @@
                 error: function (err) {
                     if (err.status === 422) {
                         showErrors(err.responseJSON.errors, "update");
+                    } else {
+                        console.error(err);
+                    }
+                }
+            });
+        }
+
+        const deleteModal = document.getElementById("deleteModal");
+
+        function openDeleteModal(juntaPanelasId, participantId) {
+            deleteModal.setAttribute("data-junta-panelas-id", juntaPanelasId);
+            deleteModal.setAttribute("data-participant-id", participantId);
+            deleteModal.show();
+        }
+
+        $("#closeDeleteModal").on("click", () => {
+            deleteModal.close();
+        });
+
+        function deleteParticipant() {
+            const juntaPanelasId = deleteModal.getAttribute("data-junta-panelas-id");
+            const participantId = deleteModal.getAttribute("data-participant-id");
+
+            $.ajax({
+                url: `http://localhost:8000/junta-panelas/${juntaPanelasId}/participants/${participantId}`,
+                method: "delete",
+                success: function () {
+                    deleteModal.close();
+                    location.reload();
+                },
+                error: function (err) {
+                    if (err.status === 405) {
+                        deleteModal.close();
+                        location.reload();
                     } else {
                         console.error(err);
                     }

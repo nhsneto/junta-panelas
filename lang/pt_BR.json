@@ -27,6 +27,7 @@
     "Update": "Atualizar",
     "Update Planning": "Atualizar Planejamento",
     "Delete": "Excluir",
+    "Delete Participant": "Excluir Participante",
     "Change Email": "Mudar Email",
     "Current Email": "Email Atual",
     "New Email": "Novo Email",
@@ -48,5 +49,6 @@
     "Participant should bring at least 1 item.": "O participante deve levar pelo menos 1 item.",
     "The email is incorrect.": "Email incorreto.",
     "Delete Planning": "Excluir Planejamento",
-    "Are you sure you want to delete this planning?" : "Tem certeza que deseja excluir este planejamento?"
+    "Are you sure you want to delete this planning?" : "Tem certeza que deseja excluir este planejamento?",
+    "Are you sure you want to delete this participant?": "Tem certeza que deseja excluir este participante?"
 }
