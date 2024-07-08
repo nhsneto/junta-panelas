@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\JuntaPanelas;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -234,11 +235,16 @@ test('should fail when trying to change the user\'s password with wrong password
 test('should delete the user', function () {
     $user = User::factory()->create();
 
+    JuntaPanelas::factory()->create([
+        'user_id' => $user,
+    ]);
+
     $response = $this->actingAs($user)->delete(route('user.delete'), [
         'password' => 'password',
     ]);
 
     expect(User::all())->toBeEmpty();
+    expect(JuntaPanelas::all())->toBeEmpty();
     $response->assertRedirect('/');
 });
 

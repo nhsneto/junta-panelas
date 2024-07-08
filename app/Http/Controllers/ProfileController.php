@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JuntaPanelas;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -62,10 +63,12 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+        $id = $user->id;
 
         Auth::logout();
 
         $user->delete();
+        JuntaPanelas::where('user_id', $id)->delete(); // Performs 'cascade on delete' manually because we're using mongodb
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
