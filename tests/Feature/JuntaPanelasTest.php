@@ -255,3 +255,35 @@ test('should generate and download a junta-panelas pdf', function () {
 
     $response->assertDownload("{$title}.pdf");
 });
+
+test('should fail when trying to update a junta-panelas planning as a user that doesn\'t own it', function () {
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
+
+    $juntaPanelas = JuntaPanelas::factory()->create([
+        'user_id' => $user,
+    ]);
+
+    $response = $this->actingAs($otherUser)->put(route('junta-panelas.update', ['juntaPanelas' => $juntaPanelas]), [
+        'title' => 'New Test title',
+        'date' => now()->modify('+ 5 days')->format('Y-m-d'),
+        'time' => '20:00',
+    ]);
+
+    $response->assertStatus(403);
+});
+
+test('should fail when trying to delete a junta-panelas planning as a user that doesn\'t own it', function () {
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
+
+    $juntaPanelas = JuntaPanelas::factory()->create([
+        'user_id' => $user,
+    ]);
+
+    $response = $this->actingAs($otherUser)->delete(route('junta-panelas.destroy', [
+        'juntaPanelas' => $juntaPanelas,
+    ]));
+
+    $response->assertStatus(403);
+});

@@ -59,6 +59,10 @@ class JuntaPanelasController extends Controller
 
     public function update(Request $request, JuntaPanelas $juntaPanelas): RedirectResponse
     {
+        if ($request->user()->cannot('update', $juntaPanelas)) {
+            abort(403);
+        }
+
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'date' => ['required', 'date', 'after:' . now()->format('Y-m-d')],
@@ -80,8 +84,12 @@ class JuntaPanelasController extends Controller
         ]);
     }
 
-    public function destroy(JuntaPanelas $juntaPanelas): RedirectResponse
+    public function destroy(Request $request, JuntaPanelas $juntaPanelas): RedirectResponse
     {
+        if ($request->user()->cannot('delete', $juntaPanelas)) {
+            abort(403);
+        }
+
         $juntaPanelas->delete();
         return redirect()->route('junta-panelas.index');
     }
