@@ -58,14 +58,8 @@ class ProfileController extends Controller
     public function deleteUser(Request $request): RedirectResponse
     {
         $request->validate([
-            'password' => ['required'],
+            'password' => ['required', 'current_password'],
         ]);
-
-        if (!Hash::check($request->password, $request->user()->password)) {
-            throw ValidationException::withMessages([
-                'password' => __('Incorrect password.'),
-            ]);
-        }
 
         $user = $request->user();
 
