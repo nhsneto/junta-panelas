@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
-use MongoDB\BSON\ObjectId;
-use MongoDB\Client;
 
 class ParticipantController extends Controller
 {
@@ -89,22 +87,15 @@ class ParticipantController extends Controller
         }
 
         $participant = $juntaPanelas->participants()->find($participantId);
-        $collection = (new Client())->selectDatabase('junta-panelas')->junta_panelas;
 
         if ($participant->name !== $newName) {
-            $collection->updateOne(
-                ['_id' => new ObjectId($juntaPanelas->id)],
-                ['$set' => ['participants.$[elem].name' => $newName]],
-                ['arrayFilters' => [['elem._id' => new ObjectId($participantId)]]]
-            );
+            $participant->name = $newName;
+            $juntaPanelas->participants()->save($participant);
         }
 
         if (!$this->areTheSameItems($participant->items, $newItems)) {
-            $collection->updateOne(
-                ['_id' => new ObjectId($juntaPanelas->id)],
-                ['$set' => ['participants.$[elem].items' => $newItems]],
-                ['arrayFilters' => [['elem._id' => new ObjectId($participantId)]]]
-            );
+            $participant->items = $newItems;
+            $juntaPanelas->participants()->save($participant);
         }
     }
 
