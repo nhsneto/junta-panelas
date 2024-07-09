@@ -10,7 +10,7 @@
 ])
 
 <div class="flex flex-col gap-y-2">
-    @if($label) <label for="{{ $id }}" class="self-start font-semibold">{{ $label }}</label> @endif
+    @if($label) <label for="{{ $id }}" class="self-start font-semibold text-sm md:text-base">{{ $label }}</label> @endif
     <input
         type="{{ $type }}"
         name="{{ $name }}"
