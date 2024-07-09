@@ -10,7 +10,7 @@
             <x-primary-link href="{{ route('junta-panelas.index') }}">{{ __('My Junta-Panelas') }}</x-primary-link>
 
             <div class="flex dropdown dropdown-bottom dropdown-end">
-                <button id="dropdownTrigger">
+                <button>
                     <x-icons.user-circle class="size-9" />
                 </button>
                 <div tabindex="0" id="dropdownMenu" class="w-48 px-0 py-1.5 dropdown-content menu bg-[#fbfbfb] rounded z-[1] shadow">
