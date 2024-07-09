@@ -248,7 +248,7 @@ test('should fail when trying to delete a participant of a junta-panelas as a us
 
     $jp = JuntaPanelas::first();
 
-    $response = $this->actingAs($otherUser)->put(route('participant.update', [
+    $response = $this->actingAs($otherUser)->delete(route('participant.update', [
         'juntaPanelas' => $jp,
         'participantId' => $jp->participants[0]->id,
     ]), [
