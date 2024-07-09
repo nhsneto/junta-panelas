@@ -181,6 +181,35 @@ test('should fail when trying to update a participant with an item longer than 1
     $response->assertInvalid('item_2');
 });
 
+test('should fail when trying to update a participant of a junta-panelas as a user that doesn\'t own it', function () {
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
+
+    $juntaPanelas = JuntaPanelas::factory()->create([
+        'user_id' => $user,
+    ]);
+
+    $this->actingAs($user)->post(route('participant.store', [
+        'juntaPanelas' => $juntaPanelas
+    ]), [
+        'name' => 'John Doe',
+        'item_1' => 'Cake',
+    ]);
+
+    $jp = JuntaPanelas::first();
+
+    $response = $this->actingAs($otherUser)->put(route('participant.update', [
+        'juntaPanelas' => $jp,
+        'participantId' => $jp->participants[0]->id,
+    ]), [
+        'name' => 'John Doe',
+        'item_1' => 'Cake',
+        'item_2' => 'Burrito',
+    ]);
+
+    $response->assertStatus(403);
+});
+
 test('should delete a participant from a junta-panelas', function () {
     $juntaPanelas = JuntaPanelas::factory()->create();
 
@@ -201,3 +230,32 @@ test('should delete a participant from a junta-panelas', function () {
     expect($jp->participants)->toBeEmpty();
     $response->assertRedirectToRoute('participant.index', ['juntaPanelas' => $jp]);
 });
+
+test('should fail when trying to delete a participant of a junta-panelas as a user that doesn\'t own it', function () {
+    $user = User::factory()->create();
+    $otherUser = User::factory()->create();
+
+    $juntaPanelas = JuntaPanelas::factory()->create([
+        'user_id' => $user,
+    ]);
+
+    $this->actingAs($user)->post(route('participant.store', [
+        'juntaPanelas' => $juntaPanelas
+    ]), [
+        'name' => 'John Doe',
+        'item_1' => 'Cake',
+    ]);
+
+    $jp = JuntaPanelas::first();
+
+    $response = $this->actingAs($otherUser)->put(route('participant.update', [
+        'juntaPanelas' => $jp,
+        'participantId' => $jp->participants[0]->id,
+    ]), [
+        'name' => 'Karen',
+        'item_1' => 'Cake',
+    ]);
+
+    $response->assertStatus(403);
+});
+

@@ -63,6 +63,10 @@ class ParticipantController extends Controller
 
     public function update(Request $request, JuntaPanelas $juntaPanelas, string $participantId)
     {
+        if ($request->user()->cannot('update-participant', $participantId)) {
+            abort(403);
+        }
+
         $request->validate([
             'name' => ['required', 'max:100'],
             'item_1' => ['max:100'],
@@ -109,8 +113,12 @@ class ParticipantController extends Controller
         return $arrA == $arrB;
     }
 
-    public function destroy(JuntaPanelas $juntaPanelas, string $participantId): RedirectResponse
+    public function destroy(Request $request, JuntaPanelas $juntaPanelas, string $participantId): RedirectResponse
     {
+        if ($request->user()->cannot('update-participant', $participantId)) {
+            abort(403);
+        }
+
         $participant = $juntaPanelas->participants()->find($participantId);
         $juntaPanelas->participants()->detach($participant);
 
