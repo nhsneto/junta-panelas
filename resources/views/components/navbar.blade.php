@@ -27,6 +27,7 @@
                     <x-icons.user-circle class="size-9" />
                 </button>
                 <div tabindex="0" id="dropdownMenu" class="w-48 px-0 py-1.5 dropdown-content menu bg-[#fbfbfb] rounded z-[1] shadow">
+                    <a href="{{ route('junta-panelas.index') }}" class="px-4 py-2 hover:bg-black/5 sm:hidden">{{ __('My Junta-Panelas') }}</a>
                     <a href="{{ route('profile') }}" class="px-4 py-2 hover:bg-black/5">{{ __('Profile') }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @method('DELETE')
