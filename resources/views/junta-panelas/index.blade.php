@@ -3,7 +3,7 @@
         <x-icons.floating-action-button class="drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]" />
     </button>
 
-    <div class="mt-5 w-full lg:w-3/4">
+    <div class="mt-5 w-full lg:w-3/4 md:mt-10">
         <div class="hidden sticky top-0 z-10 py-5 bg-[#fff5ea] md:block">
             <button onclick="openCreateModal()" class="btn px-8 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Plan') }}</button>
         </div>
@@ -20,7 +20,7 @@
                         <button>
                             <x-icons.ellipsis-vertical />
                         </button>
-                        <div tabindex="0" id="dropdownMenu" class="w-48 px-0 py-1.5 dropdown-content menu bg-[#fbfbfb] rounded shadow">
+                        <div tabindex="0" class="dropdown-content w-48 px-0 py-1.5 menu bg-[#fbfbfb] rounded shadow">
                             <a href="{{ route('login') }}" class="px-4 py-2 hover:bg-black/5">{{ __('Log In') }}</a>
                             <a href="{{ route('register') }}" class="px-4 py-2 hover:bg-black/5">{{ __('Register') }}</a>
                         </div>
