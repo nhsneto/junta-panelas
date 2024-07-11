@@ -21,8 +21,18 @@
                             <x-icons.ellipsis-vertical />
                         </button>
                         <div tabindex="0" class="dropdown-content w-48 px-0 py-1.5 menu bg-[#fbfbfb] rounded shadow">
-                            <a href="{{ route('login') }}" class="px-4 py-2 hover:bg-black/5">{{ __('Log In') }}</a>
-                            <a href="{{ route('register') }}" class="px-4 py-2 hover:bg-black/5">{{ __('Register') }}</a>
+                            <a href="{{ route('participant.index', ['juntaPanelas' => $juntaPanelas]) }}" title="{{ __('Participants') }}" class="flex items-center gap-x-3 px-4 py-2 hover:bg-black/5">
+                                <x-icons.people class="size-5" />
+                                <span>{{ __('Participants') }}</span>
+                            </a>
+                            <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Edit') }}" class="flex items-center gap-x-3 px-4 py-2 hover:bg-black/5">
+                                <x-icons.pencil class="size-5" />
+                                <span>{{ __('Edit') }}</span>
+                            </button>
+                            <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Delete') }}" class="flex items-center gap-x-3 px-4 py-2 hover:bg-black/5">
+                                <x-icons.trash class="size-5" />
+                                <span>{{ __('Delete') }}</span>
+                            </button>
                         </div>
                     </div>
 
