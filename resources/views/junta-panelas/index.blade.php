@@ -1,39 +1,44 @@
 <x-layout>
-    <div class="mt-6 w-2/3 flex flex-col">
-        <div class="w-full mt-10 py-6 pl-8 sticky top-0 z-10 rounded-md bg-[#fbfbfb] drop-shadow">
-            <button id="openCreateModal" class="btn px-8 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Plan') }}</button>
+    <button onclick="openCreateModal()" class="fixed bottom-5 right-5 z-20 md:hidden">
+        <x-icons.floating-action-button class="drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]" />
+    </button>
+
+    <div class="mt-5 w-full lg:w-3/4">
+        <div class="hidden sticky top-0 z-10 py-5 bg-[#fff5ea] md:block">
+            <button onclick="openCreateModal()" class="btn px-8 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Plan') }}</button>
         </div>
 
-        <div class="mt-5 overflow-x-auto rounded-md bg-[#fbfbfb] px-8 py-5 shadow">
-            <table class="table table-lg table-fixed">
-                @php $length = count($juntaPanelasList); @endphp
+        <div class="mt-5 rounded-md bg-[#fbfbfb] space-y-2 py-4 shadow md:px-4">
+            @foreach($juntaPanelasList as $juntaPanelas)
+                <div class="group flex justify-between items-center px-3 py-2 hover:bg-black/5">
+                    <div class="min-w-0 md:max-w-[540px] min-[1140px]:max-w-[620px]">
+                        <x-primary-link href="{{ route('junta-panelas.show', ['juntaPanelas' => $juntaPanelas]) }}" class="block truncate text-sm font-bold md:text-base">{{ $juntaPanelas->title }}</x-primary-link>
+                        <x-date :date="$juntaPanelas->date" class="text-xs font-semibold md:text-sm" />
+                    </div>
 
-                @foreach($juntaPanelasList as $juntaPanelas)
-                    <tr class="group hover:bg-black/5 @if($length === 1) border-b-0 @elseif($length > 1) border-b-black/15 @endif">
-                        <td class="py-10">
-                            <x-primary-link href="{{ route('junta-panelas.show', ['juntaPanelas' => $juntaPanelas]) }}" class="text-lg font-bold">{{ $juntaPanelas->title }}</x-primary-link>
-                        </td>
+                    <div class="dropdown dropdown-left pl-3 md:pl-5 min-[870px]:hidden">
+                        <button>
+                            <x-icons.ellipsis-vertical />
+                        </button>
+                        <div tabindex="0" id="dropdownMenu" class="w-48 px-0 py-1.5 dropdown-content menu bg-[#fbfbfb] rounded shadow">
+                            <a href="{{ route('login') }}" class="px-4 py-2 hover:bg-black/5">{{ __('Log In') }}</a>
+                            <a href="{{ route('register') }}" class="px-4 py-2 hover:bg-black/5">{{ __('Register') }}</a>
+                        </div>
+                    </div>
 
-                        <td>
-                            <x-date :date="$juntaPanelas->date" class="text-sm" />
-                        </td>
-
-                        <td>
-                            <div class="hidden items-center gap-x-3 group-hover:flex">
-                                <a href="{{ route('participant.index', ['juntaPanelas' => $juntaPanelas]) }}" title="{{ __('Participants') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
-                                    <x-icons.people class="size-5" />
-                                </a>
-                                <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Edit') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
-                                    <x-icons.pencil class="size-5" />
-                                </button>
-                                <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
-                                    <x-icons.trash class="size-5" />
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
+                    <div class="hidden items-center gap-x-3 min-[870px]:hidden min-[870px]:group-hover:flex">
+                        <a href="{{ route('participant.index', ['juntaPanelas' => $juntaPanelas]) }}" title="{{ __('Participants') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                            <x-icons.people class="size-5" />
+                        </a>
+                        <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Edit') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                            <x-icons.pencil class="size-5" />
+                        </button>
+                        <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                            <x-icons.trash class="size-5" />
+                        </button>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 
@@ -109,9 +114,9 @@
         const updateModal = document.getElementById("updateModal");
         const deleteModal = document.getElementById("deleteModal");
 
-        $("#openCreateModal").on("click", () => {
+        function openCreateModal() {
             createModal.show();
-        });
+        }
 
         $("#closeCreateModal").on("click", () => {
             createModal.close();
