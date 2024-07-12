@@ -12,7 +12,7 @@
             @foreach($juntaPanelasList as $juntaPanelas)
                 <div class="group flex justify-between items-center px-3 py-2 hover:bg-black/5">
                     <div class="min-w-0 md:max-w-[540px] min-[1140px]:max-w-[620px]">
-                        <p class="block truncate text-sm font-bold md:text-base">{{ $juntaPanelas->title }}</p>
+                        <p class="block truncate text-sm font-bold md:text-base @if($juntaPanelas->date < date('c')) line-through @endif">{{ $juntaPanelas->title }}</p>
                         <x-date :date="$juntaPanelas->date" class="text-xs font-semibold md:text-sm" />
                     </div>
 
