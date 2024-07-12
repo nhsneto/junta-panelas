@@ -1,81 +1,92 @@
 <x-layout>
+    <button onclick="openCreateModal()" class="fixed bottom-5 right-5 z-20 md:hidden">
+        <x-icons.floating-action-button class="drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]" />
+    </button>
+
     <div class="max-w-3xl flex flex-col basis-full gap-y-8">
         <section class="flex flex-col gap-y-10">
             <div class="text-center space-y-3">
-                <h1 class="text-2xl font-bold">{{ $juntaPanelas->title }}</h1>
-                <x-date :date="$juntaPanelas->date" class="block text-md" />
-            </div>
-            <h2 class="self-center text-2xl">{{ __('Participants') }}</h2>
-
-            <div class="w-full mt-10 py-6 pl-8 sticky top-0 z-10 rounded-md bg-[#fbfbfb] drop-shadow">
-                <button id="openCreateModal" class="btn btn-sm px-5 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Add') }}</button>
+                <h1 class="text-xl font-bold md:text-2xl">{{ $juntaPanelas->title }}</h1>
+                <x-date :date="$juntaPanelas->date" class="block text-xs font-bold md:text-sm" />
             </div>
 
-            <div class="overflow-x-auto rounded-md bg-[#fbfbfb] px-8 py-5 shadow">
-                <table class="table table-lg table-fixed">
-                    @foreach($juntaPanelas->participants->sortBy('name') as $participant)
+            <div class="hidden sticky top-0 z-10 py-5 bg-[#fff5ea] md:block">
+                <button onclick="openCreateModal()" class="btn px-8 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Plan') }}</button>
+            </div>
 
-                        @php $length = count($juntaPanelas->participants); @endphp
-                        <tr class="group hover:bg-black/5 @if($length === 1) border-b-0 @elseif($length > 1) border-b-black/15 @endif">
-                            <td class="py-5">
-                                <h2 class="font-bold text-black/50">{{ $participant->name }}</h2>
-                            </td>
+            <div class="rounded-md bg-[#fbfbfb] space-y-2 py-4 shadow md:px-4">
+                @foreach($juntaPanelas->participants->sortBy('name') as $participant)
 
-                            <td>
-                                <p class="text-sm font-semibold text-black/50">{{ implode(' · ', $participant->items) }}</p>
-                            </td>
+                    <div class="group flex justify-between items-center px-3 py-2 hover:bg-black/5">
+                        <div class="min-w-0 md:max-w-[540px] min-[1140px]:max-w-[620px]">
+                            <h2 class="text-sm font-bold md:text-base">{{ $participant->name }}</h2>
+                            <p class="text-xs font-semibold text-black/50 md:text-sm">{{ implode(' · ', $participant->items) }}</p>
+                        </div>
 
-                            <td>
-                                <div class="hidden items-center gap-x-2 group-hover:flex">
-                                    <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" title="{{ __('Edit') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
-                                        <x-icons.pencil class="size-5" />
-                                    </button>
-                                    <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
-                                        <x-icons.trash class="size-5" />
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
+                        <div class="dropdown dropdown-left pl-3 md:pl-5 md:hidden">
+                            <button>
+                                <x-icons.ellipsis-vertical />
+                            </button>
+                            <div tabindex="0" class="dropdown-content w-48 px-0 py-1.5 menu bg-[#fbfbfb] rounded shadow">
+                                <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" title="{{ __('Edit') }}" class="flex items-center gap-x-3 px-4 py-2 hover:bg-black/5">
+                                    <x-icons.pencil class="size-5" />
+                                    <span>{{ __('Edit') }}</span>
+                                </button>
+                                <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" class="flex items-center gap-x-3 px-4 py-2 hover:bg-black/5">
+                                    <x-icons.trash class="size-5" />
+                                    <span>{{ __('Delete') }}</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="hidden items-center gap-x-2 md:block lg:hidden lg:group-hover:flex">
+                            <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" title="{{ __('Edit') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                                <x-icons.pencil class="size-5" />
+                            </button>
+                            <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" title="{{ __('Delete') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                                <x-icons.trash class="size-5" />
+                            </button>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </section>
     </div>
 
     <dialog id="createModal" class="modal bg-black/40">
-        <div class="modal-box px-12 bg-[#fbfbfb]">
+        <div class="modal-box px-6 bg-[#fbfbfb] md:px-12">
 
             <form class="flex flex-col gap-y-6">
                 <div>
                     <x-form-field label="{{ __('Name') }}" name="name" id="name" placeholder="{{ __('John') }}" :value="old('name')" required/>
-                    <ul data-name-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                    <ul data-name-errors="create" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                 </div>
 
                 <div class="flex flex-col gap-y-4">
-                    <p class="font-semibold">Item(s)</p>
+                    <p class="text-sm font-semibold md:text-base">Item(s)</p>
                     <div>
                         <x-form-field name="item_1" placeholder="{{ __('Cake') }}" />
-                        <ul data-item_1-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul data-item_1-errors="create" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                     </div>
 
                     <div>
                         <x-form-field name="item_2" />
-                        <ul data-item_2-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul data-item_2-errors="create" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                     </div>
 
                     <div>
                         <x-form-field name="item_3" />
-                        <ul data-item_3-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul data-item_3-errors="create" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                     </div>
 
                     <div>
                         <x-form-field name="item_4" />
-                        <ul data-item_4-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul data-item_4-errors="create" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                     </div>
 
                     <div>
                         <x-form-field name="item_5" />
-                        <ul data-item_5-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul data-item_5-errors="create" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                     </div>
                 </div>
             </form>
@@ -88,39 +99,39 @@
     </dialog>
 
     <dialog id="updateModal" class="modal bg-black/40">
-        <div class="modal-box px-12 bg-[#fbfbfb]">
+        <div class="modal-box px-6 bg-[#fbfbfb] md:px-12">
 
             <form class="flex flex-col gap-y-6">
                 <div>
                     <x-form-field label="{{ __('Name') }}" name="update_name" placeholder="{{ __('John') }}" :value="old('name')" required/>
-                    <ul data-name-errors="create" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                    <ul data-name-errors="create" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                 </div>
 
                 <div class="flex flex-col gap-y-4">
-                    <p class="font-semibold">Item(s)</p>
+                    <p class="text-sm font-semibold md:text-base">Item(s)</p>
                     <div>
                         <x-form-field name="update_item_1" placeholder="{{ __('Cake') }}" />
-                        <ul data-item_1-errors="update" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul data-item_1-errors="update" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                     </div>
 
                     <div>
                         <x-form-field name="update_item_2" />
-                        <ul data-item_2-errors="update" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul data-item_2-errors="update" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                     </div>
 
                     <div>
                         <x-form-field name="update_item_3" />
-                        <ul data-item_3-errors="update" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul data-item_3-errors="update" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                     </div>
 
                     <div>
                         <x-form-field name="update_item_4" />
-                        <ul data-item_4-errors="update" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul data-item_4-errors="update" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                     </div>
 
                     <div>
                         <x-form-field name="update_item_5" />
-                        <ul data-item_5-errors="update" class="hidden mt-2 text-sm text-red-600 space-y-1"></ul>
+                        <ul data-item_5-errors="update" class="hidden mt-2 text-xs text-red-600 space-y-1 md:text-sm"></ul>
                     </div>
                 </div>
             </form>
@@ -146,9 +157,9 @@
     <script>
         const createModal = document.getElementById("createModal");
 
-        $("#openCreateModal").on("click", () => {
+        function openCreateModal() {
             createModal.show();
-        });
+        }
 
         $("#closeCreateModal").on("click", () => {
             createModal.close();
