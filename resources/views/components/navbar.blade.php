@@ -35,10 +35,10 @@
                         <x-icons.cog-tooth />
                         <span>{{ __('Profile') }}</span>
                     </a>
-                    <form method="POST" action="{{ route('logout') }}" class="px-4 py-2 hover:bg-black/5">
+                    <form method="POST" action="{{ route('logout') }}">
                         @method('DELETE')
                         @csrf
-                        <button class="flex items-center gap-x-3 text-left">
+                        <button class="w-full flex items-center px-4 py-2 gap-x-3 text-left hover:bg-black/5">
                             <x-icons.logout />
                             <span>{{ __('Log Out') }}</span>
                         </button>
