@@ -3,7 +3,7 @@
         <x-icons.floating-action-button class="drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)]" />
     </button>
 
-    <div class="mt-5 w-full lg:w-3/4 md:mt-10">
+    <div class="mt-5 w-full lg:w-4/5 xl:w-3/4 md:mt-10">
         <div class="hidden sticky top-0 z-10 py-5 bg-[#fff5ea] md:block">
             <button onclick="openCreateModal()" class="btn px-8 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Plan') }}</button>
         </div>
@@ -25,6 +25,12 @@
                                 <x-icons.people class="size-5" />
                                 <span>{{ __('Participants') }}</span>
                             </a>
+                            <form method="GET" action="{{ route('junta-panelas.pdf', ['juntaPanelas' => $juntaPanelas]) }}" class="px-4 py-2 hover:bg-black/5">
+                                <button class="flex items-center gap-x-3">
+                                    <x-icons.download-document class="size-5"/>
+                                    <span>{{ __('Download') }}</span>
+                                </button>
+                            </form>
                             <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Edit') }}" class="flex items-center gap-x-3 px-4 py-2 hover:bg-black/5">
                                 <x-icons.pencil class="size-5" />
                                 <span>{{ __('Edit') }}</span>
@@ -40,6 +46,11 @@
                         <a href="{{ route('participant.index', ['juntaPanelas' => $juntaPanelas]) }}" title="{{ __('Participants') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
                             <x-icons.people class="size-5" />
                         </a>
+                        <form method="GET" action="{{ route('junta-panelas.pdf', ['juntaPanelas' => $juntaPanelas]) }}">
+                            <button class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                                <x-icons.download-document class="size-5"/>
+                            </button>
+                        </form>
                         <button onclick="openUpdateModal({{ json_encode($juntaPanelas->id) }})" title="{{ __('Edit') }}" class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
                             <x-icons.pencil class="size-5" />
                         </button>
