@@ -8,7 +8,7 @@
             <button onclick="openCreateModal()" class="btn px-8 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Plan') }}</button>
         </div>
 
-        <div class="mt-5 rounded-md bg-[#fbfbfb] space-y-2 py-4 shadow md:px-4">
+        <div class="mt-5 rounded-md bg-[#fbfbfb] space-y-2 py-4 shadow md:px-4 @if(!count($juntaPanelasList)) hidden @endif">
             @foreach($juntaPanelasList as $juntaPanelas)
                 <div class="group flex justify-between items-center px-3 py-2 hover:bg-black/5">
                     <div class="min-w-0 md:max-w-[540px] min-[1140px]:max-w-[620px]">
