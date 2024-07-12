@@ -27,12 +27,21 @@
                     <x-icons.user-circle class="size-9" />
                 </button>
                 <div tabindex="0" id="dropdownMenu" class="w-48 px-0 py-1.5 dropdown-content menu bg-[#fbfbfb] rounded z-[1] shadow">
-                    <a href="{{ route('junta-panelas.index') }}" class="px-4 py-2 hover:bg-black/5 sm:hidden">{{ __('My Junta-Panelas') }}</a>
-                    <a href="{{ route('profile') }}" class="px-4 py-2 hover:bg-black/5">{{ __('Profile') }}</a>
-                    <form method="POST" action="{{ route('logout') }}">
+                    <a href="{{ route('junta-panelas.index') }}" class="flex items-center gap-x-3 px-4 py-2 hover:bg-black/5 sm:hidden">
+                        <x-icons.cake />
+                        <span>{{ __('Junta-Panelas') }}</span>
+                    </a>
+                    <a href="{{ route('profile') }}" class="flex items-center gap-x-3 px-4 py-2 hover:bg-black/5">
+                        <x-icons.cog-tooth />
+                        <span>{{ __('Profile') }}</span>
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}" class="px-4 py-2 hover:bg-black/5">
                         @method('DELETE')
                         @csrf
-                        <button class="w-full text-left px-4 py-2 hover:bg-black/5">{{ __('Log Out') }}</button>
+                        <button class="flex items-center gap-x-3 text-left">
+                            <x-icons.logout />
+                            <span>{{ __('Log Out') }}</span>
+                        </button>
                     </form>
                 </div>
             </div>
