@@ -8,8 +8,8 @@ planning, which date the party will be, the hour it will begin, its participants
 what they will bring.
 
 ## App's Screenshots
-- <a href="https://drive.google.com/drive/folders/1-jq7UF-ZtDCdiH4yjYX8IwsMHVTzt3xE?usp=sharing" target="_blank">Mobile</a>
-- <a href="https://drive.google.com/drive/folders/1HJzUkAt0u6D27X_GyIa3ADWcir_dS-rW?usp=sharing" target="_blank">Desktop</a>
+- [Mobile](https://drive.google.com/drive/folders/1-jq7UF-ZtDCdiH4yjYX8IwsMHVTzt3xE?usp=sharing)
+- [Desktop](https://drive.google.com/drive/folders/1HJzUkAt0u6D27X_GyIa3ADWcir_dS-rW?usp=sharing)
 
 ## Supported Languages
 
