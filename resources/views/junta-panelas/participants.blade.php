@@ -11,7 +11,7 @@
             </div>
 
             <div class="hidden sticky top-0 z-10 py-5 bg-[#fff5ea] md:block">
-                <button onclick="openCreateModal()" class="btn px-8 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Plan') }}</button>
+                <button onclick="openCreateModal()" class="btn px-8 border-none bg-[#f0997d] hover:bg-[#ee8c6d]">{{ __('Add') }}</button>
             </div>
 
             <div class="rounded-md bg-[#fbfbfb] space-y-2 py-4 shadow md:px-4 @if(!count($juntaPanelas->participants)) hidden @endif">
@@ -32,7 +32,7 @@
                                     <x-icons.pencil class="size-5" />
                                     <span>{{ __('Edit') }}</span>
                                 </button>
-                                <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" class="flex items-center gap-x-3 px-4 py-2 hover:bg-black/5">
+                                <button onclick="openDeleteModal({{ json_encode($juntaPanelas->id) }}, {{ json_encode($participant->id) }})" title="{{ __('Delete') }}" class="flex items-center gap-x-3 px-4 py-2 hover:bg-black/5">
                                     <x-icons.trash class="size-5" />
                                     <span>{{ __('Delete') }}</span>
                                 </button>

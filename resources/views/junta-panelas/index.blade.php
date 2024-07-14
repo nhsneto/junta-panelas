@@ -26,7 +26,7 @@
                                 <span>{{ __('Participants') }}</span>
                             </a>
                             <form method="GET" action="{{ route('junta-panelas.pdf', ['juntaPanelas' => $juntaPanelas]) }}">
-                                <button class="w-full flex items-center px-4 py-2 gap-x-3 text-left hover:bg-black/5">
+                                <button class="w-full flex items-center px-4 py-2 gap-x-3 text-left hover:bg-black/5" title="{{ __('Download') }}">
                                     <x-icons.download-document class="size-5"/>
                                     <span>{{ __('Download') }}</span>
                                 </button>
@@ -47,7 +47,7 @@
                             <x-icons.people class="size-5" />
                         </a>
                         <form method="GET" action="{{ route('junta-panelas.pdf', ['juntaPanelas' => $juntaPanelas]) }}">
-                            <button class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10">
+                            <button class="px-1.5 py-1.5 rounded-full hover:bg-black/5 active:bg-black/10" title="{{ __('Download') }}">
                                 <x-icons.download-document class="size-5"/>
                             </button>
                         </form>
