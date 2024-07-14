@@ -8,8 +8,8 @@ planning, which date the party will be, the hour it will begin, its participants
 what they will bring.
 
 ## App's Screenshots
-- [Mobile](https://github.com/nhsneto/junta-panelas/tree/main/screenshots/mobile)
-- [Desktop](https://github.com/nhsneto/junta-panelas/tree/main/screenshots/desktop)
+- <a href="https://drive.google.com/drive/folders/1-jq7UF-ZtDCdiH4yjYX8IwsMHVTzt3xE?usp=sharing" target="_blank">Mobile</a>
+- <a href="https://drive.google.com/drive/folders/1HJzUkAt0u6D27X_GyIa3ADWcir_dS-rW?usp=sharing" target="_blank">Desktop</a>
 
 ## Supported Languages
 
