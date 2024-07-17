@@ -1,7 +1,6 @@
 # Junta-Panelas App
 
 ## About
-
 WEB app that helps people to plan their junta-panelas parties (those parties  
 that each guest bring a food/drink). In this app, the user can register junta-panelas  
 planning, which date the party will be, the hour it will begin, its participants, and  
@@ -13,18 +12,16 @@ planning containing a list of its participants and what they will bring to the p
 - [Desktop](https://drive.google.com/drive/folders/1HJzUkAt0u6D27X_GyIa3ADWcir_dS-rW?usp=sharing)
 
 ## Supported Languages
-
 The app supports two languages depending on the app's locale setting (server side):
 - English (Default)
 - Portuguese
 
 ## Databases
-- Mongodb for user, junta-panelas, and participant models.
-  - Participant document is embedded into junta-panelas document. 
-- SQLite for sessions and cache.
+- Mongodb for user, junta-panelas and participant models
+  - Participant document is embedded into junta-panelas document
+- SQLite for sessions and cache
 
 ## App Built with:
-
 - SQLite
 - Mongodb 7.0
 - PHP 8.2
